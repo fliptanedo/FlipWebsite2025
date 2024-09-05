@@ -30,7 +30,7 @@ marketing:
 header:
   navbar:
     enable: true
-    blox: "navbar"
+    blox: "navbarflip"
     fixed_to_top: true
     show_search: false
     show_theme_chooser: true

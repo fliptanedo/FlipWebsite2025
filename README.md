@@ -103,9 +103,46 @@ Take a look at `./assets_templates/css/` to see how HugoBlox organizes its CSS f
 
 ## Navbar
 
+### Background
+
 The navigation bar template is `./layouts/partials/components/headers/navbar.html`. (Create this if needed, copying from `./layouts_templates`.)
 
-The CSS that describes the navigation bar is in `./assets/css/blox/navbar.css`. Copy this from `./assets_templates/` and edit the file. I
+The CSS that describes the navigation bar is in `./assets/css/blox/navbar.css`. Copy this from `./assets_templates/` and edit the file. I didn't end up editing this for this round.
+
+### What I did
+
+I renamed the navbar template to `./layouts/partials/components/headers/navbarflip.html` and updated `./config/_default/params.yaml` to have: 
+
+```
+# Site header
+header:
+  navbar:
+    enable: true
+    blox: "navbarflip"
+```
+
+`navbarflip.html` has two primary edits at the top:
+
+```
+<!-- FLIP DEL -->
+<!-- <header id="site-header" class="header"> -->
+<!-- /FLIP -->
+<!-- FLIP ADD -->
+<header id="site-header" class="header" style="background-color: black; color: white">
+<!-- /FLIP -->
+
+  <nav class="navbar px-3 flex justify-left">
+    <div class="order-0 h-100">
+      <!-- Brand -->
+<!-- FLIP DEL -->
+      <!-- <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ site.Title }}"> -->
+<!-- /FLIP -->
+<!-- FLIP ADD -->
+      <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ site.Title }}" style="color: white">
+<!-- /FLIP -->
+```
+
+I've changed the color of the navbar 
 
 
 
