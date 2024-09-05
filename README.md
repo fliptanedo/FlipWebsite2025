@@ -162,4 +162,4 @@ The CSS for all of the blox is in `./assets/css/blox/`. You can see that `all.cs
 
 ## Notes
 
-* "navbar" is my navigation blox
+* Responsive design: the phone view looks weird for default blox: no margin. 
