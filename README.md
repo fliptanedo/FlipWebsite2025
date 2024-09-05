@@ -128,7 +128,7 @@ header:
 <!-- <header id="site-header" class="header"> -->
 <!-- /FLIP -->
 <!-- FLIP ADD -->
-<header id="site-header" class="header" style="background-color: black; color: white">
+<header id="site-header" class="header" style="background-color: #012622; color: white">
 <!-- /FLIP -->
 
   <nav class="navbar px-3 flex justify-left">
@@ -142,7 +142,11 @@ header:
 <!-- /FLIP -->
 ```
 
-I've changed the color of the navbar 
+I've changed the color of the navbar to ~~black~~ very dark green (#012622) and the text (and links) to white.
+
+### In the future
+
+* This looks surprisingly okay.
 
 
 
