@@ -1,0 +1,25 @@
+# FLIP FOLDERS
+layouts_templates/
+assets_templates/
+.github_BACKUP/
+
+# IDEs
+.idea/
+
+# Hugo
+resources/
+public/
+jsconfig.json
+node_modules/
+go.sum
+.hugo_build.lock
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Mac finder files and hidden folders
+.DS_Store
+
+# Private files
+private.md

@@ -5,7 +5,7 @@
 
 # Appearance
 appearance:
-  mode: system
+  mode: light
   color: emerald
 
 # SEO
@@ -14,8 +14,8 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
-    twitter: 'GetResearchDev'
+    description: 'Flip Tanedo is a theoretical particle physicist'
+    twitter: 'fliptanedo'
   analytics:
     google_analytics: ''
     baidu_tongji: ''
@@ -32,15 +32,15 @@ header:
     enable: true
     blox: "navbar"
     fixed_to_top: true
-    show_search: true
+    show_search: false
     show_theme_chooser: true
     logo:
-      text: "Your Name"
+      text: "Flip Tanedo"
 
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} Flip Tanedo. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false
@@ -55,6 +55,6 @@ locale:
 # Site features
 features:
   math:
-    enable: false
+    enable: true
   privacy_pack:
     enable: false
