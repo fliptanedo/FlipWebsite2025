@@ -1,7 +1,7 @@
 /*
+  ////////////////////
+ // CRYPTED E-MAIL //
 ////////////////////
-// CRYPTED E-MAIL //
-///////////////////
 */
 
 /* specifically: https://stackoverflow.com/a/41566570 */
@@ -15,7 +15,11 @@ USAGE:
 
 
 
-/*  for CV WIDGET  */
+/*
+  //////////////////////////////////
+ // CV / BIOGRAPHY WIDGET / BLOX //
+//////////////////////////////////
+*/
 
 .sidebarpic{
   /* sets max size  */
@@ -27,10 +31,14 @@ USAGE:
 
 
 
-/*  FOOTER BAR PLACEMENT */
+/*
+  //////////////////////////////////
+ // FOOTER BAR WITH FEYNMAN      //
+//////////////////////////////////
+*/
+/*  this is the trucky one */
 
 footer {
-  /* background-color:#333333; */
   /* Not sure if this is still relevant (this is from 2018)
   /* the default template defines footer margin/padding according to rem */
   /* but rem scales according to the bootstrap responsive design */
@@ -63,7 +71,7 @@ footer {
 	margin: 0;
 	padding: 0;
   	position: relative;
-  	bottom: 90px;
+  	bottom: 60px;
   	left: 40vw;
 	z-index: 200;
 	height: 200px;
@@ -77,28 +85,43 @@ footer {
   background-color:#012622;
 }
 
-#THECONTENT{
-  /* div that stores content, gives it a white background */
-  /* for aesthetics when "overscrolling" */
-  /* see layouts/_default/baseof.html */
-  /* dark color background, covers below the bottom bar  */
+/* Successive layers of background coloring  */
+/* "lowest" layer first */
+
+body{
+  /* Kludge for overscrolling */
+  /* When you "pull up" beyond the page,  
+     this makes the overscroll match the navbar 
+     and footer bar colors. */
   background-color: #012622;
-  /* PROBLEM: this  paints over the background of the bio blox  */
+}
+
+#THECONTENT{
+  /* previously: gives white background for content */
+  /* this is now needed to color the very bottom of
+     the view screen. */
+  /* Amusingly, it does not even need to be colored.  */
+  background-color: #012622; /* you can even skip this */
+  /* see my notes. */
 }
 
 #PAGEBODY{
   /* this is the true "body", we want it white */
   background-color: #ffffff;
-  /* PROBLEM: this  paints over the background of the bio blox  */
 }
 
 #section-resume-biography-flip
 {
+	/* This is a total kludge */
+	/* Something about imposing background-color on
+     #THECONTENT and #PAGEBODY causes the first block
+     to lose its background. It turns out you can save it
+     by giving that block a large z-valuee.
+     Fortunately, the theme automatically separates blocks
+     by <section> tags with ID = to the block name.
+     So whatever block you use (resume-biogrpahy-3 
+     is default), be sure to give it a large z-index.
+      */
 	z-index: 250;
 }
 
-/* Kludge for overscrolling */
-/* Color the background */
-body{
-  background-color: #012622;
-}

@@ -82,6 +82,20 @@ This is a possibly temporary section as I navigate the Tailwind-based template f
      * `mode: light`: I don't want to make two versions of all of my design elements yet
      * `navbar`: turn off search and theme chooser, name as logo text
      * Enable math
+     * At the bottom of the page, add the following:
+       ```yaml
+       ## ADDED BY FLIP
+       
+       # Feynman Diagram Footer
+       footmark: 'layout/feynmanfooter.png'
+       
+       # Footer logos
+       midlogo: 'logo/UCRPAlogo2.png'
+       mylogo: 'logo/FlipAmbigram.png'
+       ## /FLIP
+       ```
+     
+       
 3. Transfer images. Copy over `./assets/media` including `icon.png`, a 512x512 favicon.
 4. Transfer the `./static` folder. This one has lots of potentially large files. It is a good time to do housekeeping to remove anything that is no longer being used.  It looks like there's a new suggested folder called `./static/uploads` where one is meant to place files like a CV. Instead, I have my own `./static/files/` subdirectory.
 
@@ -99,9 +113,9 @@ Prepare a `/layouts_templates` folder. This is a place to store a copy of the Hu
 
 A useful guideline: when I make edits to a template file, clearly demarcate those edits with generous comment tags. This help if I need to find these changes later.
 
-### How we edit files
+### How I edit files
 
-In what follows, we copy the default templates from the `...templates/`  In order to help us mark our edits for next time, we use tags as follows:
+In what follows, I copy the default templates from the `...templates/`  In order to help us mark our edits for next time, we use tags as follows:
 
 ```html
 <!-- FLIP DEL -->
@@ -113,6 +127,8 @@ new source
 ```
 
 This makes it much easier to see what I did next time I edit or remake my site. This is especially helpful when the HugoBlox templates change. My routine is to edit the latest template each time rather than trying to patch up old code. (Bonus: I learn more this way.)
+
+Not *all* of the edits has these blocks. Some of them are harder to comment out because of of Hugo insertions that I don't want to mess with. 
 
 ### Notes how CSS files are processed
 
@@ -127,6 +143,8 @@ Following the documentation on adding [custom CSS](https://docs.hugoblox.com/ref
 3. Add your custom CSS code to the file you created and re-run Hugo to view changes
 
 So let's go ahead and do that. Create `./assets/css/custom.css`.  We can transfer over the previous version if this isn't my first time doing this. Note that you do have to re-run Hugo to see any style sheet changes.
+
+The lion's share of my `custom.css` edits are for the custom Feynman Diagram footer bar. 
 
 # Basic Blox
 
@@ -199,6 +217,36 @@ We see that the footer does not span the entire window.
 
 Okay! So it's not going to be easy. Referring back to the 2024 notes, we can see how we built up this framework. I think we can follow the same basic edits as before. 
 
+### Make a new resume-biography block
+
+We will want to modify the resume block (the first block with the profile photo) later. Because the resume block is a source of headaches when fixing the footer (see below), we should go ahead and make the new resume-biography block now. Make a copy of `./layouts_templates/partials/blox/resume-biography-3.html` and name it `./layouts/partials/blox/resume-biography-flip.html` . 
+
+Go to `./content/_index.md` (do not confuse this with `./content/authors/_index.md`) and update the first block:
+
+```md
+sections:
+  - block: resume-biography-flip
+    content:	
+```
+
+This is important for the footer bar because we're going to 'paint' a few layers with background colors. The HugoBlox biography block adds a nice custom background for this block, but that background ends up being painted over by the solid colors. Fortunately, HugoBlox automatically creates `<section>` tags with ID equal to the block name. This means that in our CSS we can give the  ID `resume-biography-flip` (or whatever new name we use) a large z-value so that the background is visible over our re-painting. 
+
+### Repainting? What?
+
+I'd like the footer to be a solid color (same as the navbar) with some decorations on top. However, this turns out to be tricky. See the **Background** section above. In order to let the footer be a solid color, we need to make the entire page a solid color. But once we do that, we need to make the sections between the navbar and the footer white. 
+
+In the past (pre-Fall 2024) I created a `<div id="THECONTENT">` that encapsulated everything between the navbar and the footer. In the CSS, I gave this ID a white background. With the new Tailwind system, this ended up leaving some ackward areas in the footer that were not properly colored (see Background above). 
+
+It turns out that a more direct way of doing this is to color the `body` tag with the navbar color and then color the `PAGEBODY` ID (added below in `baseof.html`) white.  This makes you *think* you can just get rid of the `THECONTENT` ID. Wrong! For reasons that are not obvious to me, if you delete this div the page has a white bar on the bottom. What's really odd: you can color this ID or not even mention coloring this ID (empty CSS), and you fix the white bar problem. (Coloring this ID a different color will replace the erroneous white bar with the different color.) So you have to leave `THECONTENT` . Weird, but it works. 
+
+Here's what it looks like if we set `THECONTENT` to have a pink background:
+
+![image-20240909134846856](./figures/image-20240909134846856.png)
+
+As a bonus for all of this, we are able to fix the annoying 'overscroll' issues where pulling the site past its formal boundary (something you can do in iOS and Firefox) does not pull up a white area, but rather a colored area to make it seem like the navbar or footer extends past the screen. 
+
+Get it?
+
 ### baseof.html
 
 Background: what is [baseof](https://gohugo.io/templates/base/#readout)
@@ -248,7 +296,22 @@ Copy over `./layouts/_default/baseof.html` from `./layouts_templates`. It looks 
    ![Screenshot 2024-09-08 at 8.16.06 PM](./figures/Screenshot 2024-09-08 at 8.16.06 PM.png)
    Compare this to the image under **Background** in this section, above. Ok, now remove that styling because we're not coloring the entire site dark green.
 
-3. Now just above where we close the `THECCONTENT` div is a div called `page-footer`. Here's what it looks like initially:
+3. Revise the `<div class="page body...">` tag around line 38 by giving it an `id` .
+
+   ```html
+   <!-- FLIP DEL -->
+   <!-- <div class="page-body {{if ne .Type "landing"}} my-10{{end}}"> -->
+   <!-- /FLIP -->
+   <!-- FLIP ADD -->
+   <div class="page-body {{if ne .Type "landing"}} my-10{{end}}" id="PAGEBODY">
+   <!-- /FLIP -->
+       {{ block "main" . }}{{ end }}
+   </div>
+   ```
+
+   This will let us style the div that includes all of the blocks. Observe that this div surrounds the `{{ block "main" . }}{{ end }}`  Hugo call where all of the sections are inserted.
+
+4. Now just above where we close the `THECCONTENT` div is a div called `page-footer`. Here's what it looks like initially:
    ```html
        <div class="page-footer">
          {{ partial "site_footer" . }}
@@ -308,6 +371,12 @@ I couldn't figure out where this is generated. It is part of the `{{block "main"
 ```
 
 I'm surprised that this worked. It also let me avoid having to figure out where the shortcode is that generated the section tag. 
+
+Here's what happens if we did not add the z-index on `#section-resume-biography-flip`:
+
+![image-20240909134955724](./figures/image-20240909134955724.png)
+
+The beautiful background has disappered under the other background colors.
 
 * Some hints about the section stuff: (I can't figure it out)
   * https://discourse.gohugo.io/t/creating-a-generic-section-template/954/2

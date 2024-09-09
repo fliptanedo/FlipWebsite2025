@@ -54,7 +54,7 @@ education:
   - area: MASt, Applied Mathematics & Theoretical Physics
     institution: Cambridge University (2007)
   - area: BS, Physics, Mathematics 
-    institution: Stanford University (2008)
+    institution: Stanford University (2006)
 
 # work:
 #   - position: Director of Cloud Infrastructure
