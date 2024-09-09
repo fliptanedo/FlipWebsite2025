@@ -12,6 +12,8 @@
 
 * [Hugo Blox Docs](https://docs.hugoblox.com)
 
+  * Inserting [custom CSS](https://docs.hugoblox.com/reference/extend/#customize-style-css)
+
 * [Nick Ballou's customization page](https://nickballou.com/blog/custom-wowchemy/#add-background-image-to-bottom-of-about-widget)
 
 * [hackmd.io](https://hackmd.io/@noisyoscillator/hugo-academic-customizations)
@@ -26,6 +28,12 @@ In 2024 HugoBlox moved from Bootstrap to Tailwind.
 
 * Here's a nice explanation of how to build using Tailwind. It uses the Tailwind CDN, which may be the best way to explore before eventually running Tailwind locally. https://www.youtube.com/watch?v=8eQwgc9nc64
 * A Medium explainer for basic Tailwind: https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
+
+## Blox edits
+
+### Blox CSS Files
+
+The CSS for all of the blox is in `./assets/css/blox/`. You can see that `all.css` simply imports the other CSS files. This gives a framework for how to organize the way you introduce custom CSS for different blox. 
 
 ## HugoBlox updates
 
