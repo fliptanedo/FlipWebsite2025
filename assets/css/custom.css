@@ -132,8 +132,9 @@ body{
   text-decoration: none;
 }
 
-.powered-by a:link{
+.powered-by a:link, a:visited, a:hover, a:active{
   color: #079669;
   text-decoration: none;
 }
+
 

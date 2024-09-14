@@ -40,25 +40,26 @@
 
 <!-- OK! HERE WE GO -->
 
-<div><br><br></div> <!-- temp spacing -->
 
-<div class='grid sm:grid-cols-3'>
-  <div>
-    <img src="{{ $.Site.BaseURL }}img/{{ $.Site.Params.mylogo }}" class="center-me">
+<div class='grid sm:grid-cols-3 py-12'>
+  <div class="px-2.5">
+    <img src="{{ $.Site.BaseURL }}img/{{ $.Site.Params.mylogo }}" class="center-me" style="max-height:200px; margin-left: auto;
+  margin-right: auto;">
   </div>
 
-  <div>
+  <div class="px-2.5">
     {{ with site.Params.footer.text }}
     <p class="text-center">
       {{ . | markdownify | emojify }}
     </p>
     {{ end }}
 
+    <!-- NEEDS SOME WORK -->
     {{/* Display copyright license. */}}
     {{ partial "site_footer_license" . }}
   </div>
 
-  <div>
+  <div class="px-2.5">
     <p class="powered-by">
     {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
     </p>
