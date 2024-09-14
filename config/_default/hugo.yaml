@@ -7,6 +7,9 @@
 title: Flip Tanedo
 # Website URL
 baseURL: 'https://particle.ucr.edu/'
+## FLIP: new addition
+copyright: 'Opinions on this site do not represent those of any other groups. Conversely, the policies of my university, department, and funding agencies do not necessarily represent my values.'
+
 
 ############################
 ## LANGUAGE

@@ -39,6 +39,7 @@ header:
 
 # Site footer
 footer:
+  blox: "flipfoot"
   copyright:
     notice: '© {year} Flip Tanedo. This work is licensed under {license}'
     license:

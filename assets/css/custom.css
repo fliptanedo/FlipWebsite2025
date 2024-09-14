@@ -110,8 +110,7 @@ body{
   background-color: #ffffff;
 }
 
-#section-resume-biography-flip
-{
+#section-resume-biography-flip{
 	/* This is a total kludge */
 	/* Something about imposing background-color on
      #THECONTENT and #PAGEBODY causes the first block
@@ -122,6 +121,19 @@ body{
      So whatever block you use (resume-biogrpahy-3 
      is default), be sure to give it a large z-index.
       */
-	z-index: 250;
+	z-index: 1;
+}
+
+
+/* Footer styling  */
+
+.powered-by{
+  color: #065522;
+  text-decoration: none;
+}
+
+.powered-by a:link{
+  color: #079669;
+  text-decoration: none;
 }
 

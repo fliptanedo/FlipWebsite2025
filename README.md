@@ -21,6 +21,8 @@ Make sure you have Hugo e.g. through Homebrew. If it's been a while, you may wan
 
 The output will include a URL: `Web Server is available at http://localhost:1313/`, navigate your browser to this URL to view the page. [Link for convenience](http://localhost:1313/).
 
+**Safari note**: there is a weird bug/feature in Safari's Developer Mode that affects cookies.  (As recently as Safari 17.4) Apparently when this mode is turned on to inspect website elements, one can be logged out of accounts (e.g. Google) and lose one's authentication token. After struggling with this bug, I've decided to use Chrome and Firefox for testing sites (e.g. looking up source).
+
 ## HugoBlox Notes
 
 * The best place to get help and to see version updates is the [research.dev](https://discord.gg/6mmTvFUY) (HugoBlox) Discord server. The `#announcements` channel summarizes all the updates. 
@@ -95,7 +97,7 @@ This is a possibly temporary section as I navigate the Tailwind-based template f
        ## /FLIP
        ```
      
-       
+   
 3. Transfer images. Copy over `./assets/media` including `icon.png`, a 512x512 favicon.
 4. Transfer the `./static` folder. This one has lots of potentially large files. It is a good time to do housekeeping to remove anything that is no longer being used.  It looks like there's a new suggested folder called `./static/uploads` where one is meant to place files like a CV. Instead, I have my own `./static/files/` subdirectory.
 
@@ -359,18 +361,22 @@ Here's what I noticed in the page source:
  </div>	
 ```
 
-I couldn't figure out where this is generated. It is part of the `{{block "main" .}}{{end}}` automatically generated HTML. You can see that the background image is generated and that there's an id for the section. So the kludge is to add in our CSS some styling to put this section at a large z index. 
+I couldn't figure out where this is generated. It is part of the `{{block "main" .}}{{end}}` automatically generated HTML. You can see that the background image is generated and that there's an id for the section. So the kludge is to add in our CSS some styling to put this section at nonzero z index. 
 
 ```css
 #section-resume-biography-flip
 {
 	/* This is a total kludge */
 	/*	*/
-	z-index: 250;
+	z-index: 1;
 }
 ```
 
 I'm surprised that this worked. It also let me avoid having to figure out where the shortcode is that generated the section tag. 
+
+**Note**: Originally I put in a *large* z-index, 250. This led to a problem where the biography blog would scroll OVER the navbar. It turns out that z=1 is sufficient for our needs. 
+
+
 
 Here's what happens if we did not add the z-index on `#section-resume-biography-flip`:
 
@@ -381,6 +387,93 @@ The beautiful background has disappered under the other background colors.
 * Some hints about the section stuff: (I can't figure it out)
   * https://discourse.gohugo.io/t/creating-a-generic-section-template/954/2
   * https://cloudcannon.com/blog/the-ultimate-guide-to-hugo-sections/
+
+## Fixing up the rest of the footer
+
+The footer should look like this:
+
+![image-20240911130549292](./figures/image-20240911130549292.png)
+
+Let's work on that region below the Feynman diagram. The default footer style is stored as
+
+`./layouts/partials/components/footers/minimal.html`.
+
+Go ahead and copy this from `./layouts_templates/` and paste it into `./layouts./...` , renaming it to `./layouts/partials/components/footers/flipfoot`. 
+
+Go to `./config/_default/params.yaml` and use `flipfoot` as the block:
+
+```yaml
+# Site footer
+footer:
+  blox: "flipfoot"
+    notice: '© {year} Me. This work is licensed under {license}'
+    license:
+      enable: true
+      allow_derivatives: false
+      share_alike: true
+      allow_commercial: false
+```
+
+Note that previously in the Bootstrap version of HugoBlox this line was `  block: flipfoot`. 
+
+Now we edit `./layouts/partials/components/footers/flipfoot.html`. Unfortunately my edits from 2024 do not carry over since that used the Bootstrap grid. Fortunately, it is not too hard to create the analogous grid in Tailwind. For three columns, the structure is:
+
+```html
+<div class='grid sm:grid-cols-3'>
+	<div>1</div>
+	<div>2</div>
+	<div>3</div>
+</div>
+```
+
+The `sm:grid-cols-3` tells tailwind that the next three [sub-]divs should appear in consecutive columns if the screen size is *at least* `sm`. 
+
+We can now copy over the site-footer divs from last year. There are some tweaks we'll need.
+
+### Font Awesome Fix (temp?)
+
+Also an experiment with the [hook system](https://docs.hugoblox.com/reference/extend/). Create the following file: `.layouts/partials/hooks/head-end/font-awesome-flip.html`
+
+Font Awesome installation (this was mine, you should get your own):
+
+```html
+<script src="https://kit.fontawesome.com/ae82ca92c2.js" crossorigin="anonymous"></script>`
+```
+
+This seems to have fixed a problem where the Creative Commons Font Awesome logos were not showing up. (I assume this problem will be fixed separately)
+
+## Site License 
+
+Tweak `./layouts/partialss/site_footer_license.html` at this point:
+
+```html
+<!-- FLIP DEL -->
+  <!-- <p class="powered-by footer-license-icons"> -->
+<!-- /FLIP -->
+<!-- FLIP ADD --> <!-- add centering -->
+  <p class="powered-by footer-license-icons text-center">
+<!-- /FLIP -->
+```
+
+This is to center the Creative Commons icons. 
+
+### CSS tweaks for the footer
+
+These are some items I've added to `./assets/css/custom.css` for the footer: 
+
+```css
+.powered-by{
+  color: #065522;
+  text-decoration: none;
+}
+
+.powered-by a:link{
+  color: #079669;
+  text-decoration: none;
+}
+```
+
+
 
 ## Notes
 
