@@ -41,7 +41,7 @@ header:
 footer:
   blox: "flipfoot"
   copyright:
-    notice: '© {year} Flip Tanedo. This work is licensed under {license}'
+    notice: '© {year} Flip Tanedo. This work is licensed under {license}. [Source on GitHub](https://github.com/fliptanedo/FlipWebsite2024). Published using [HugoBlox](https://github.com/HugoBlox/hugo-blox-builder) for [Hugo](https://gohugo.io). Thanks to George Cushen.'
     license:
       enable: true
       allow_derivatives: false
