@@ -1,8 +1,26 @@
+
+   /*
+  ////////////////////
+ //  FONT UPDATE   //
+////////////////////
+*/
+
+
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 /*
   ////////////////////
  // CRYPTED E-MAIL //
 ////////////////////
 */
+
+
 
 /* specifically: https://stackoverflow.com/a/41566570 */
 .cryptedmail:after {

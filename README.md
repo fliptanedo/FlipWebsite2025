@@ -11,7 +11,7 @@ I periodically re-do my personal website from scratch using the latest ~~Hugo Th
 
 See [Hugo Notes](HugoNotes.md) for links and general Hugo(Blox) references.
 
-Old versions: [2025](https://github.com/fliptanedo/FlipWebsite2025) (private) | [2024](https://github.com/fliptanedo/FlipWebsite2024) (private) |  [2023](https://github.com/fliptanedo/FlipWebsite2023)| [2022](https://github.com/fliptanedo/FlipWebsite2022/blob/main/README.md) | [2021](https://github.com/fliptanedo/tanedo-website-2021/blob/master/README.md) | [2020](https://github.com/fliptanedo/flip-www-2020)
+Old versions: [2025](https://github.com/fliptanedo/FlipWebsite2025) (this) | [2024](https://github.com/fliptanedo/FlipWebsite2024) ([site](https://fliptanedo.github.io/FlipWebsite2024/))|  [2023](https://github.com/fliptanedo/FlipWebsite2023)| [2022](https://github.com/fliptanedo/FlipWebsite2022/blob/main/README.md) | [2021](https://github.com/fliptanedo/tanedo-website-2021/blob/master/README.md) | [2020](https://github.com/fliptanedo/flip-www-2020)
 
 ## Using Hugo Reminder
 
@@ -66,7 +66,7 @@ Make sure you have installed Hugo.
    cp .gitignore ../FlipWebsite2025/
    ```
 
-5. If you want to deploy to GitHub Pages as a staging ground, you can folowo these instructions: https://docs.hugoblox.com/reference/deployment/ (I'm doing this so I can compare this new page to my previously published page.)
+5. If you want to deploy to GitHub Pages as a staging ground, you can follow these instructions: https://docs.hugoblox.com/reference/deployment/ (I'm doing this so I can compare this new page to my previously published page.)
 
 6. Start hacking the template by copying over bits from the old site. The steps for this are summarized below. As you go through this, update the `README.md` file accordingly. You future self will thank you (take this moment to thank me).
 
@@ -473,7 +473,182 @@ These are some items I've added to `./assets/css/custom.css` for the footer:
 }
 ```
 
+### How it should look
 
+![image-20240914161615196](./figures/image-20240914161615196.png)
+
+And it should look reasonable on a small screen. 
+
+## Creating a template block
+
+The older Bootstrap HugoBlox template had these great two column responsive template (markdown) blocks
+
+![image-20240914161806562](./figures/image-20240914161806562.png)
+
+As of this writing the Tailwind version does not yet have such a template. However, it looks like it should be relatively straightforward to adapt such a block from the original `markdown` block in the Bootstrap version
+
+### Notes on the existing Markdown Block
+
+From `./layouts_tempaltes/partials/blox/markdown.html`
+
+```html
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $title }}
+  </div>
+
+  {{ with $text }}
+  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
+  </div>
+  {{ end }}
+  
+</div>
+```
+
+This does not give the two column split that I'm looking for. Let us draw inspiration from the Bootstrap version of HugoBlox. Here, the two column markdown layout matched the break poitns of the about widget. That is: at some common break point, all home page elements became one column. To be efficient, we can just follow the structure of the `resume-biography` block. 
+
+(How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.)
+
+The result is:
+
+```html
+
+
+<div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
+  <div class="flex-none m-w-[130px] mx-auto md:mx-0">
+
+    <div id="profile" class="flex justify-center items-center flex-col">
+      <div class="portrait-title dark:text-white">
+        <div class="text-3xl font-bold mb-2 mt-6">
+          {{ $title }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+
+  </div>
+
+</div>
+```
+
+I call this `./layouts/partials/blox/flip_markdown.html`. 
+
+## Font
+
+The Bootstrap version of HugoBlox handled fonts with a separate TOML file. At the time of this writing, the present Tailwind version does not yet have such an interface. The key html is as follows:
+
+````html
+  <style>
+    @font-face {
+      font-family: 'Inter var';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url(/dist/font/Inter.var.woff2) format(woff2);
+    }
+  </style>
+````
+
+You can find this in `layouts_templates/partials/site_head.html`:
+
+```go
+ {{/* Load font theme */}}
+  {{ $font_family := "Inter var" }}
+  {{ $font_file := "" }}
+  {{ $font_type := "" }}
+  {{ if eq site.Params.appearance.font "serif" }}
+    {{ $font_file = "RobotoSlab-VariableFont_wght.ttf" }}
+    {{ $font_type = "truetype" }}
+  {{else}}
+    {{ $font_file = "Inter.var.woff2" }}
+    {{ $font_type = "woff2" }}
+  {{end}}
+  {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
+  <style>
+    @font-face {
+      font-family: '{{$font_family}}';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url({{ $font.RelPermalink }}) format({{$font_type}});
+    }
+  </style>
+```
+
+I think it is not too had to have the Hugo variables (e.g. `$font_family`) pull from the `.config/_default/params.yaml` file. However, I expect this to be updated in a future HugoBlox version so there's no need to reinvent the wheel. For now, let me make my own copy  `./layouts/partials/site_head.html` where the font is loaded by hand.
+
+Let's use [Raleway](https://fonts.google.com/specimen/Raleway), a variable width font available on Google Fonts. Grab the embed code. Google gives the following for `<head>`:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+```
+
+And for CSS:
+
+```css
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 900
+
+.raleway-<uniquifier> {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}		
+```
+
+Here's how we use that information. Let's go to `./layouts/partials/site_head`:
+
+```html
+  <!-- FLIP DEL -->
+  <!-- 
+  <style>
+    @font-face {
+      font-family: '{{$font_family}}';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url({{ $font.RelPermalink }}) format({{$font_type}});
+    }
+  </style>
+  -->
+  <!-- /FLIP -->
+  <!-- FLIP ADD -->
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+  </style>
+  <!-- /FLIP  -->
+```
+
+We're putting the `@import` call in here. Now go to `./assets/css/custom.css` and paste the following on top:
+
+```css
+   /*
+  ////////////////////
+ //  FONT UPDATE   //
+////////////////////
+*/
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100 900;
+  font-style: normal;
+}
+```
+
+With this, the font should be updated. 
+
+![image-20240915103547061](./figures/image-20240915103547061.png)
 
 ## Notes
 

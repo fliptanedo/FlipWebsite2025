@@ -31,6 +31,18 @@ sections:
           size: cover
           position: center
           parallax: false
+  - block: flip_markdown
+    content:
+      title: 'Flip Research'
+      subtitle: ''
+      text: |-
+        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        
+        Please reach out to collaborate 
+    design:
+      columns: '2'
   - block: markdown
     content:
       title: '📚 My Research'
