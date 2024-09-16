@@ -540,6 +540,19 @@ The result is:
 
 I call this `./layouts/partials/blox/flip_markdown.html`. 
 
+A small edit: I did not like that there is a `<div id="profiles">` in a non-profile block. If I simply removeo this, the text is misaligned: ![Screenshot 2024-09-15 at 3.57.21 PM](./figures/Screenshot 2024-09-15 at 3.57.21 PM.png)
+
+Peeking at `./assets_templates/css/blox/biography.css` shows that `.resume-bigroaphy #profile` has additional padding. So let's put this in:
+
+``` html
+<!-- <div id="profile" class="flex justify-center items-center flex-col"> -->
+    <div class="flex justify-center items-center flex-col" style="padding: 30px 10p;position: relative;"> 
+```
+
+Hmm. That did not seem to work. Also, it seems like the left side bar is not actually fixed length.
+
+![image-20240915160709120](./figures/image-20240915160709120.png)
+
 ## Font
 
 The Bootstrap version of HugoBlox handled fonts with a separate TOML file. At the time of this writing, the present Tailwind version does not yet have such an interface. The key html is as follows:
@@ -650,9 +663,18 @@ With this, the font should be updated.
 
 ![image-20240915103547061](./figures/image-20240915103547061.png)
 
+## CV Widget
+
+I'm using the revised `flip_markdown` block as a template to make a CV block. The edits will parallel the `flip.cv.html` block from the earlier 2024 Bootstrap version of my site. 
+
 ## Notes
 
 * Colors
-  * Dark green for header: `background-color: #012622`
+  * Dark green for header: `background-color: #012622`; I may want to go with a dark moss green rather than a dark pine green.
+  * I may want to make a more transparent version of my amibgram for the footer
+* Do I want the profile picture to be larger and higher res? The default template processes the profile image through a Hugo algorithm to shrink the file size. However, these profile pictures are significant when department pull photos for seminar flyers. 
+
+### Old Notes
+
 * Responsive design: the phone view looks weird for default blox: no margin. 
   * Geo fixed this here: https://github.com/HugoBlox/hugo-blox-builder/commit/4f621dfa3a5ab798bea17ad2760bd61815c76f25
