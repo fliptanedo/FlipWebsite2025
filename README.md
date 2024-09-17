@@ -487,7 +487,78 @@ The older Bootstrap HugoBlox template had these great two column responsive temp
 
 As of this writing the Tailwind version does not yet have such a template. However, it looks like it should be relatively straightforward to adapt such a block from the original `markdown` block in the Bootstrap version
 
-### Notes on the existing Markdown Block
+### OLD Notes on the existing Markdown Block
+
+From `./layouts_tempaltes/partials/blox/markdown.html`
+
+```html
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $title }}
+  </div>
+
+  {{ with $text }}
+  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
+  </div>
+  {{ end }}
+  
+</div>
+```
+
+This does not give the two column split that I'm looking for. Let us draw inspiration from the Bootstrap version of HugoBlox. Here, the two column markdown layout matched the break poitns of the about widget. That is: at some common break point, all home page elements became one column. To be efficient, we can just follow the structure of the `resume-biography` block. 
+
+(How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.)
+
+Here's the problem:
+
+![image-20240916185021553](./figures/image-20240916185021553.png)
+
+(Note: in this image I've already colored the background. More on this in a bit.) This corresponds to 
+
+```html
+<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
+  
+  <!-- <div class="md:w-48 flip-section-title"> -->
+  <div class="md:w-48">
+       <div>{{ $title }}</div>
+  </div>
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+  </div>
+
+</div>
+```
+
+We fix this by using `<div class="md:w-48 flip-section-title">` (commented out above), where we define `flip-section-title` in `./assets/css/custom.css`:
+
+```css
+.flip-section-title{
+  padding: 3rem 10px 0px 0px;
+}
+
+.blox-flip-cv{
+  background-color: #F7F7F7;
+}
+```
+
+This gives us:
+
+![image-20240916185259737](./figures/image-20240916185259737.png)
+
+Note that the 3rem padding lined up the first column text with the second. Also observe hwo `.blox-flip-cv`  changed the background color of the section. This is because Hugo encloses each section in a tag:
+
+```html
+
+<section id="section-flip_cv" class="relative hbb-section blox-flip-cv  " style="padding: 6rem 0 6rem 0;" >
+```
+
+where the `id` is "section-`partial_name`" and the class automaticaly contains "blox-`partial_name`." In this example, the partial is called `flip_cv`. You can see how you can get alternating background colors by specifying the background color in the CSS for each uniquely defined block. 
+
+<mark>In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
+
+### OLD Notes on the existing Markdown Block
 
 From `./layouts_tempaltes/partials/blox/markdown.html`
 
@@ -671,6 +742,7 @@ I'm using the revised `flip_markdown` block as a template to make a CV block. Th
 
 * Colors
   * Dark green for header: `background-color: #012622`; I may want to go with a dark moss green rather than a dark pine green.
+  * `#F7F7F7` is the very light gray that the old Bootstrap template used to differentiate sections. 
   * I may want to make a more transparent version of my amibgram for the footer
 * Do I want the profile picture to be larger and higher res? The default template processes the profile image through a Hugo algorithm to shrink the file size. However, these profile pictures are significant when department pull photos for seminar flyers. 
 

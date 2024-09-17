@@ -33,7 +33,7 @@ sections:
           parallax: false
   - block: flip_cv
     content:
-      title: 'CV Here I am testing it out. Use this area to speak to your mission'
+      title: 'Curriculum Vitae'
       subtitle: ''
       text: |-
         Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.

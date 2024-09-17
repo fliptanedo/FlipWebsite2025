@@ -14,6 +14,14 @@ body {
   font-style: normal;
 }
 
+.blox-flip-cv{
+  background-color: #F7F7F7;
+}
+
+.flip-section-title{
+  padding: 3rem 10px 0px 0px;
+}
+
 /*
   ////////////////////
  // CRYPTED E-MAIL //
