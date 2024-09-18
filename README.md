@@ -11,7 +11,13 @@ I periodically re-do my personal website from scratch using the latest ~~Hugo Th
 
 See [Hugo Notes](HugoNotes.md) for links and general Hugo(Blox) references.
 
-Old versions: [2025](https://github.com/fliptanedo/FlipWebsite2025) (this) | [2024](https://github.com/fliptanedo/FlipWebsite2024) ([site](https://fliptanedo.github.io/FlipWebsite2024/))|  [2023](https://github.com/fliptanedo/FlipWebsite2023)| [2022](https://github.com/fliptanedo/FlipWebsite2022/blob/main/README.md) | [2021](https://github.com/fliptanedo/tanedo-website-2021/blob/master/README.md) | [2020](https://github.com/fliptanedo/flip-www-2020)
+Old versions: [2025](https://github.com/fliptanedo/FlipWebsite2025) (this) | [2024](https://github.com/fliptanedo/FlipWebsite2024) ([site](https://fliptanedo.github.io/FlipWebsite2024/)) |  [2023](https://github.com/fliptanedo/FlipWebsite2023) | [2022](https://github.com/fliptanedo/FlipWebsite2022/blob/main/README.md) | [2021](https://github.com/fliptanedo/tanedo-website-2021/blob/master/README.md) | [2020](https://github.com/fliptanedo/flip-www-2020) [unfortunately I did not have the foresight to host 2023 and before on GitHub Pages as an archive; copies are stored on my UCR webspace. ]
+
+
+
+## Table of contents
+
+[TOC]
 
 ## Using Hugo Reminder
 
@@ -66,7 +72,7 @@ Make sure you have installed Hugo.
    cp .gitignore ../FlipWebsite2025/
    ```
 
-5. If you want to deploy to GitHub Pages as a staging ground, you can follow these instructions: https://docs.hugoblox.com/reference/deployment/ (I'm doing this so I can compare this new page to my previously published page.)
+5. If you want to deploy to GitHub Pages as a staging ground, you can follow these instructions: https://docs.hugoblox.com/reference/deployment/ This is a nice way to compare the new site to my previously published site. It also serves to archive old versions of the page.
 
 6. Start hacking the template by copying over bits from the old site. The steps for this are summarized below. As you go through this, update the `README.md` file accordingly. You future self will thank you (take this moment to thank me).
 
@@ -485,9 +491,39 @@ The older Bootstrap HugoBlox template had these great two column responsive temp
 
 ![image-20240914161806562](./figures/image-20240914161806562.png)
 
-As of this writing the Tailwind version does not yet have such a template. However, it looks like it should be relatively straightforward to adapt such a block from the original `markdown` block in the Bootstrap version
+As of this writing the Tailwind Hugoblox version does not yet have such a template. However, it looks like it should be relatively straightforward to adapt such a block from the original `markdown` block in the Bootstrap version.
 
-### OLD Notes on the existing Markdown Block
+### A better Markdown Block
+
+After tweaking `flip_cv.html` I think there is a cleaner way to refine the markdown block. The original attempt is below. I'm saving it as `flip_markdown_original.html`. The goal is to strip away references to `resume-biography` classes to have a bare minimum. 
+
+```html
+<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
+
+  <div class="md:w-48 flip-section-md">
+    <div class="text-2xl font-bold mb-2 mt-6">
+      {{ $title }}
+    </div>
+  </div>
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+  </div>
+
+</div>
+```
+
+In `./assets/css/custom.css`:
+
+```css
+.flip-section-md{
+  padding: 2rem 10px 0px 0px;
+}	
+```
+
+This spacing is needed to align the title on large screens.
+
+### OLDER: An initial attempt
 
 From `./layouts_tempaltes/partials/blox/markdown.html`
 
@@ -506,9 +542,7 @@ From `./layouts_tempaltes/partials/blox/markdown.html`
 </div>
 ```
 
-This does not give the two column split that I'm looking for. Let us draw inspiration from the Bootstrap version of HugoBlox. Here, the two column markdown layout matched the break poitns of the about widget. That is: at some common break point, all home page elements became one column. To be efficient, we can just follow the structure of the `resume-biography` block. 
-
-(How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.)
+How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.
 
 Here's the problem:
 
@@ -558,7 +592,9 @@ where the `id` is "section-`partial_name`" and the class automaticaly contains "
 
 <mark>In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
 
-### OLD Notes on the existing Markdown Block
+
+
+### OLDEST Notes on the existing Markdown Block
 
 From `./layouts_tempaltes/partials/blox/markdown.html`
 
@@ -621,8 +657,6 @@ Peeking at `./assets_templates/css/blox/biography.css` shows that `.resume-bigro
 ```
 
 Hmm. That did not seem to work. Also, it seems like the left side bar is not actually fixed length.
-
-![image-20240915160709120](./figures/image-20240915160709120.png)
 
 ## Font
 
@@ -736,7 +770,72 @@ With this, the font should be updated.
 
 ## CV Widget
 
-I'm using the revised `flip_markdown` block as a template to make a CV block. The edits will parallel the `flip.cv.html` block from the earlier 2024 Bootstrap version of my site. 
+I'm using the revised `flip_markdown` block as a template to make a CV block. The edits will parallel the `flip.cv.html` block from the earlier 2024 Bootstrap version of my site.  Note that Hugo doesn't seem to like capital letters in file names, so we use `flip_cv.html` rather than `flip_CV.html`. The latter produces an error. 
+
+The CV widget is a little tricky because it's more an adaptation of the resume block than the markdown block. I am loathe to do "real" Tailwind edits in this iteration, so I'm further limited by the default Tailwind classes defined in the Hugo Blox template. This means I don't have access to the `max-width` classes: a callenge is to render the group logo at a smaller size on phones: when viewed in column view, the image wants to take up the whole width.
+
+
+
+![image-20240918110214992](./figures/image-20240918110214992.png)
+
+Annoying! Look how wide that is. The code for the above is:
+
+```html
+	{{ if $block.content.group_logo }}
+        <div class="h-auto max-w-xs">
+          <img src="{{ $block.content.group_logo }}">
+        </div>
+	{{ end }}
+```
+
+Instead, we can make the following hack:
+
+```html
+        <div class="flex flex-row">
+          <div class="w-64">.</div>
+          <div class="flex-auto">
+          <img src="{{ $block.content.group_logo }}">
+          </div>
+          <div class="w-64">.</div>
+        </div>
+```
+
+It's not elegant, but it uses the fact that `w-64` is defined without me having to re-run Tailwind. The result is that the logo is proportionally smaller on small screens because tehre are some fixed-width buffers on either side.
+
+That's a reasonable fix for small screens. Now we have to fix it so that it doesn't have these buffers on large screens. To do this, we use Tailwind's responsive design conditional:
+
+```html
+<div class="flex flex-row md:flex-col">
+          <div class="w-64 md:hidden"></div>
+          <div class="flex-auto">
+          <img src="{{ $block.content.group_logo }}">
+          </div>
+          <div class="w-64 md:hidden"></div>
+        </div>
+```
+
+So that for medium sized screens the buffer divs disappear.
+
+Now we can also include the `svg` for a button (adapted from resume block):
+
+```html
+<br></br>
+        <p style="text-align: center;">
+        <a target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+        <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+        </svg> 
+        Download Full CV </a>
+        </p>
+```
+
+The path defines the curve of the button outline. It seems super cumbersome compared to Bootstrap. 
+
+Here's how it looks so far:
+
+![Screenshot 2024-09-18 at 11.14.40 AM](./figures/Screenshot 2024-09-18 at 11.14.40 AM.png)
+
+<mark>To do: fill in CV link</mark>
 
 ## Notes
 
@@ -745,6 +844,29 @@ I'm using the revised `flip_markdown` block as a template to make a CV block. Th
   * `#F7F7F7` is the very light gray that the old Bootstrap template used to differentiate sections. 
   * I may want to make a more transparent version of my amibgram for the footer
 * Do I want the profile picture to be larger and higher res? The default template processes the profile image through a Hugo algorithm to shrink the file size. However, these profile pictures are significant when department pull photos for seminar flyers. 
+* From George Cushen on Discord: 10/29/2023 (is that date possibly right?)
+
+  * Resizing the profile picture can be done purely by adding custom CSS (either using the documented Custom CSS file, or adding it to the end of your `template.scss`:
+
+    ```
+    .wg-about-avatar .avatar {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: unset !important;
+    }
+    
+    .wg-about-avatar .avatar-wrapper {
+      width: 350px !important;
+      height: 350px !important;
+    }
+    ```
+
+    As for resolution of the image itself, the resolution is reduced with Hugo for optimizing website performance. To increase the image resolution, override the block or create your own version of the block and increase the resolution passed to Hugo's image processing here: https://github.com/wowchemy/wowchemy-hugo-themes/blob/f55ff594c0f63899a8af893f33bd62ceb77cc8fd/modules/wowchemy/layouts/partials/blocks/about.avatar.html#L29
+
+    
+
+    You can also increase the quality of the image by changing Hugo's image processing quality option to something higher such as 95 in your Hugo config.yaml: https://github.com/wowchemy/wowchemy-hugo-themes/blob/ed188eb822c985952e1c927f776b034368ab970f/starters/academic/config/_default/config.yaml#L50
+
 
 ### Old Notes
 

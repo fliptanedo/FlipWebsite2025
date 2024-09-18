@@ -1,4 +1,5 @@
 {{/* Hugo Blox: Markdown */}}
+{{/* modified by Flip Tanedo */}}
 {{/* Documentation: https://hugoblox.com/blocks/ */}}
 {{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
 
@@ -10,25 +11,16 @@
 
 
 
-<div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
-  <div class="flex-none m-w-[130px] mx-auto md:mx-0">
+<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
 
-    <div id="profile" class="flex justify-center items-center flex-col">
-    <!-- <div class="flex justify-center items-center flex-col" style="padding: 30px 10p;position: relative;">  -->
-      <div class="portrait-title dark:text-white">
-        <div class="text-3xl font-bold mb-2 mt-6">
-          {{ $title }}
-        </div>
-      </div>
+  <div class="md:w-48 flip-section-md">
+    <div class="text-2xl font-bold mb-2 mt-6">
+      {{ $title }}
     </div>
-
   </div>
 
-
   <div class="flex-auto max-w-prose md:mt-12">
-    
     {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
-
   </div>
 
 </div>

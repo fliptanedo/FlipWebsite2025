@@ -35,6 +35,7 @@ sections:
     content:
       title: 'Curriculum Vitae'
       subtitle: ''
+      group_logo: ./img/logo/UCRHEP_2022.png
       text: |-
         Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
 
@@ -43,9 +44,87 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
+    cv_pdf: ./files/Tanedo.pdf
+    awards:
+      - thing: NSF CAREER Award
+        link: https://beta.nsf.gov/funding/opportunities/faculty-early-career-development-program-career
+        dates: 2021 - 2026
+      - thing: UCR Junior Excellence in Teaching Award
+        link: https://academyteachers.ucr.edu/awards/jet
+        dates: 2021
+      - thing: Hellman Fellow
+        link: http://www.hellmanfellows.org
+        dates: 2020 - 2021
+      - thing: UCR Commitment to Graduate Diversity Award
+        link: https://insideucr.ucr.edu/awards/2020/06/24/four-professors-honored-senate-faculty-awards
+        dates: 2020
+      - thing: UCI Chancellor's Advance Postdoctoral Fellow
+        link: https://inclusion.uci.edu/funding-programs/postdoctoral-fellowship-programs/#capfp
+        dates: 2014 - 2015  
+      - thing: Paul & Daisy Soros Fellowship
+        link: https://www.pdsoros.org
+        dates: 2010 - 2012  
+      - thing: NSF Graduate Research Fellow
+        link: https://www.nsfgrfp.org
+        dates: 2006 - 2011  
+      - thing: Marshall Scholarship
+        link: https://www.marshallscholarship.org
+        dates: 2006 - 2008
+    interests:
+      - interest: Dark Matter
+      - interest: Quantum field theory
+      - interest: Phenomenology
+      - interest: Astro/Cosmo-Particle
+    education:
+      - course: PhD in Physics
+        course_short: PhD
+        institution: Cornell University
+        institution_short: Cornell
+        year: 2013
+        logo: /logo/icon_Co.png
+      - course: MSc in Physics
+        course_short: MSc
+        institution: Durham University/IPPP
+        institution_short: Durham IPPP
+        year: 2008
+        logo: /logo/icon_D.png
+      - course: MASt in Mathematics
+        course_short: MASt
+        institution: Cambridge University
+        institution_short: Cambridge
+        year: 2007
+        logo: /logo/icon_Ca.png
+      - course: BS in Physics & Mathematics
+        course_short: BS
+        institution: Stanford University
+        institution_short: Stanford
+        year: 2008
+        logo: /logo/icon_S.png
+    service:
+      - thing: Fall Physics Colloquium Chair 
+      - thing: Website Committee 
+      - thing: '[CNAS Equity Advisor](https://diversity.ucr.edu/equity-advisors)'
+      - thing: Climate Committee
+      - thing: '[Phy Sci Book Club
+      Moderator](https://www.cellardoorbookstore.com/book-clubs)'
+      - thing: '[POWUR faculty adviser](https://sites.google.com/view/ucr-powur/)'
+      - thing: '[APS IDEA UCR lead](https://www.aps.org/programs/innovation/fund/idea.cfm)'
+      - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
   - block: flip_markdown
     content:
-      title: 'Flip Research'
+      title: 'Flip Markdown'
+      subtitle: ''
+      text: |-
+        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        
+        Please reach out to collaborate 
+    design:
+      columns: '2'
+  - block: flip_markdown_original
+    content:
+      title: 'Flip Markdown Original'
       subtitle: ''
       text: |-
         Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
