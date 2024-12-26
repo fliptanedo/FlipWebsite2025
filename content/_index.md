@@ -9,6 +9,7 @@ design:
   spacing: "6rem"
 
 sections:
+
   - block: resume-biography-flip
     content:
       # Choose a user profile to display (a folder name within `content/authors/`)
@@ -31,6 +32,7 @@ sections:
           size: cover
           position: center
           parallax: false
+
   - block: flip_cv
     content:
       title: 'Curriculum Vitae'
@@ -110,6 +112,7 @@ sections:
       - thing: '[POWUR faculty adviser](https://sites.google.com/view/ucr-powur/)'
       - thing: '[APS IDEA UCR lead](https://www.aps.org/programs/innovation/fund/idea.cfm)'
       - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
+
   - block: flip_markdown
     content:
       title: 'Flip Markdown'
@@ -122,6 +125,7 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
+
   - block: flip_markdown_original
     content:
       title: 'Flip Markdown Original'
@@ -134,6 +138,7 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
+
   - block: markdown
     content:
       title: '📚 My Research'
@@ -146,6 +151,7 @@ sections:
         Please reach out to collaborate 😃
     design:
       columns: '1'
+
   - block: collection
     id: papers
     content:
@@ -157,6 +163,7 @@ sections:
     design:
       view: article-grid
       columns: 2
+
   - block: collection
     content:
       title: Recent Publications
@@ -167,6 +174,7 @@ sections:
         exclude_featured: false
     design:
       view: citation
+
   - block: collection
     id: talks
     content:
@@ -177,6 +185,7 @@ sections:
     design:
       view: article-grid
       columns: 1
+
   - block: collection
     id: news
     content:
@@ -206,6 +215,7 @@ sections:
       # Reduce spacing
       spacing:
         padding: [0, 0, 0, 0]
+        
   - block: cta-card
     demo: true # Only display this section in the Hugo Blox Builder demo site
     content:

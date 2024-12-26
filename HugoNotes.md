@@ -28,6 +28,8 @@ In 2024 HugoBlox moved from Bootstrap to Tailwind.
 
 * Here's a nice explanation of how to build using Tailwind. It uses the Tailwind CDN, which may be the best way to explore before eventually running Tailwind locally. https://www.youtube.com/watch?v=8eQwgc9nc64
 * A Medium explainer for basic Tailwind: https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
+* https://refine.dev/blog/tailwind-grid/#span-rows
+* https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
 
 ## Blox edits
 
@@ -90,3 +92,14 @@ It looks like one can use [hugo code in the css file](https://discourse.gohugo.i
 * Could also have two copies of the css file, one for light/dark. But now this doubles the work of updating the css. What would be better is if we used scss and had some Hugo code at the top that defines the colors. 
 * Most likely I should leave this to a future revision. 
 * Can probably use `invert()` to deal with images using css? See [this discussion](https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert). 
+
+
+
+# Deployment Notes
+
+* https://stackoverflow.com/questions/61447350/automatically-pull-from-remote-using-github-actions 
+* https://gist.github.com/Nilpo/8ed5e44be00d6cf21f22
+
+
+
+* https://superuser.com/questions/232144/how-to-stop-a-currently-running-cron-job

@@ -7,7 +7,7 @@ Based on [HugoBlox](https://hugoblox.com)
 
 I periodically re-do my personal website from scratch using the latest ~~Hugo Theme Academic~~ ~~Wowchemy~~ [HugoBlox](https://hugoblox.com) Academic CV template. Most of the material in this document copied from earlier websites. This `README.md` file is a personal reminder of how I edited the page; I revise it each time I  edit the page. 
 
-**In support of HugoBlox**: George Cushen maintains HugoBlox. I am happy to be a lifetime supporter which comes with all current and future themes. Cushen is an active maintainer and I have found the HugoBlox Discord to be very helpful and responsive.
+**Supporting HugoBlox**: George Cushen maintains HugoBlox. I am happy to be a lifetime supporter which comes with all current and future themes. Cushen is an active maintainer and I have found the HugoBlox Discord to be very helpful and responsive.
 
 See [Hugo Notes](HugoNotes.md) for links and general Hugo(Blox) references.
 
@@ -27,13 +27,30 @@ Make sure you have Hugo e.g. through Homebrew. If it's been a while, you may wan
 
 The output will include a URL: `Web Server is available at http://localhost:1313/`, navigate your browser to this URL to view the page. [Link for convenience](http://localhost:1313/).
 
+The homepage contents are in: `./content./_index.md` 
+
+25 Dec 2024: I've upgraded Hugo and I get the following error:
+
+```
+ERROR deprecated: site config key paginate was deprecated in Hugo v0.128.0 and will be removed in Hugo 0.141.0. Use pagination.pagerSize instead.
+```
+
+This doesn't break anything. It looks like I'm calling Hugo 0.126.
+
 **Safari note**: there is a weird bug/feature in Safari's Developer Mode that affects cookies.  (As recently as Safari 17.4) Apparently when this mode is turned on to inspect website elements, one can be logged out of accounts (e.g. Google) and lose one's authentication token. After struggling with this bug, I've decided to use Chrome and Firefox for testing sites (e.g. looking up source).
 
 ## HugoBlox Notes
 
 * The best place to get help and to see version updates is the [research.dev](https://discord.gg/6mmTvFUY) (HugoBlox) Discord server. The `#announcements` channel summarizes all the updates. 
+
+### Tailwind
+
 * In 2024, HugoBlox moved from Bootstrap to Tailwind CSS as its CSS framework. This broke a *lot* of my workflow from previous years. This year I am rebuilding from scratch while learning Tailwind. 
 * **Strategy**: I'm not going to touch Tailwind at all this round. I'll try to keep my CSS factored out so that in the future I can go over a CSS file and Tailwind-ify it. 
+* The way Tailwind works is that it offers a *large* library of styles. In order to save on loading times, you have to run a script which parses your code so that *only* the styles that your site uses are saved to a compact (minified) css style file. Since I do not want to run Tailwind for this set of iterations, I am limited to the Tailwind classes that are already in the defautl Hugo Blox template. For example, we have access to class `w-64` and `w-12` for widths, but not any other width in between. 
+* Open question for next time: how does it work when I run Tailwind on my own local site? Will it produce a separate CSS file that I attach to `custom.css`?
+
+### Record Keeping
 
 **Build information**
 
@@ -46,7 +63,7 @@ Here's what the 2023 version looked like: (the 2024 page looks the same)
 
 ![image-20240325103923449](figures/image-20240325103923449.png)
 
-<mark>Insert screen shot of new version</mark>
+Here's the revision: ![Screenshot 2024-12-25 at 1.47.43 PM](./figures/Screenshot 2024-12-25 at 1.47.43 PM.png)
 
 ## Initialize
 
@@ -257,7 +274,7 @@ Get it?
 
 ### baseof.html
 
-Background: what is [baseof](https://gohugo.io/templates/base/#readout)
+Background: what is [baseof](https://gohugo.io/templates/base/#readout). This is the outer shell of the Hugo Blox structure.
 
 Copy over `./layouts/_default/baseof.html` from `./layouts_templates`. It looks like this changed a bit from the Bootstrap version. I went ahead an added white space to make things easier to read. (Double check that this doesn't break anything by checking `hugo server -D`. )
 
@@ -523,140 +540,7 @@ In `./assets/css/custom.css`:
 
 This spacing is needed to align the title on large screens.
 
-### OLDER: An initial attempt
 
-From `./layouts_tempaltes/partials/blox/markdown.html`
-
-```html
-<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
-
-  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $title }}
-  </div>
-
-  {{ with $text }}
-  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
-  </div>
-  {{ end }}
-  
-</div>
-```
-
-How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.
-
-Here's the problem:
-
-![image-20240916185021553](./figures/image-20240916185021553.png)
-
-(Note: in this image I've already colored the background. More on this in a bit.) This corresponds to 
-
-```html
-<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
-  
-  <!-- <div class="md:w-48 flip-section-title"> -->
-  <div class="md:w-48">
-       <div>{{ $title }}</div>
-  </div>
-
-  <div class="flex-auto max-w-prose md:mt-12">
-    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
-  </div>
-
-</div>
-```
-
-We fix this by using `<div class="md:w-48 flip-section-title">` (commented out above), where we define `flip-section-title` in `./assets/css/custom.css`:
-
-```css
-.flip-section-title{
-  padding: 3rem 10px 0px 0px;
-}
-
-.blox-flip-cv{
-  background-color: #F7F7F7;
-}
-```
-
-This gives us:
-
-![image-20240916185259737](./figures/image-20240916185259737.png)
-
-Note that the 3rem padding lined up the first column text with the second. Also observe hwo `.blox-flip-cv`  changed the background color of the section. This is because Hugo encloses each section in a tag:
-
-```html
-
-<section id="section-flip_cv" class="relative hbb-section blox-flip-cv  " style="padding: 6rem 0 6rem 0;" >
-```
-
-where the `id` is "section-`partial_name`" and the class automaticaly contains "blox-`partial_name`." In this example, the partial is called `flip_cv`. You can see how you can get alternating background colors by specifying the background color in the CSS for each uniquely defined block. 
-
-<mark>In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
-
-
-
-### OLDEST Notes on the existing Markdown Block
-
-From `./layouts_tempaltes/partials/blox/markdown.html`
-
-```html
-<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
-
-  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $title }}
-  </div>
-
-  {{ with $text }}
-  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
-  </div>
-  {{ end }}
-  
-</div>
-```
-
-This does not give the two column split that I'm looking for. Let us draw inspiration from the Bootstrap version of HugoBlox. Here, the two column markdown layout matched the break poitns of the about widget. That is: at some common break point, all home page elements became one column. To be efficient, we can just follow the structure of the `resume-biography` block. 
-
-(How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.)
-
-The result is:
-
-```html
-
-
-<div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
-  <div class="flex-none m-w-[130px] mx-auto md:mx-0">
-
-    <div id="profile" class="flex justify-center items-center flex-col">
-      <div class="portrait-title dark:text-white">
-        <div class="text-3xl font-bold mb-2 mt-6">
-          {{ $title }}
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="flex-auto max-w-prose md:mt-12">
-    
-    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
-
-  </div>
-
-</div>
-```
-
-I call this `./layouts/partials/blox/flip_markdown.html`. 
-
-A small edit: I did not like that there is a `<div id="profiles">` in a non-profile block. If I simply removeo this, the text is misaligned: ![Screenshot 2024-09-15 at 3.57.21 PM](./figures/Screenshot 2024-09-15 at 3.57.21 PM.png)
-
-Peeking at `./assets_templates/css/blox/biography.css` shows that `.resume-bigroaphy #profile` has additional padding. So let's put this in:
-
-``` html
-<!-- <div id="profile" class="flex justify-center items-center flex-col"> -->
-    <div class="flex justify-center items-center flex-col" style="padding: 30px 10p;position: relative;"> 
-```
-
-Hmm. That did not seem to work. Also, it seems like the left side bar is not actually fixed length.
 
 ## Font
 
@@ -814,7 +698,7 @@ That's a reasonable fix for small screens. Now we have to fix it so that it does
         </div>
 ```
 
-So that for medium sized screens the buffer divs disappear.
+So that for medium sized screens the buffer divs disappear. (In the latest version I've iterated this trick a bit. If you do a quick grep, it looks like we have access to `w-12` without having to recompile Tailwind if you want finer control.)
 
 Now we can also include the `svg` for a button (adapted from resume block):
 
@@ -872,3 +756,140 @@ Here's how it looks so far:
 
 * Responsive design: the phone view looks weird for default blox: no margin. 
   * Geo fixed this here: https://github.com/HugoBlox/hugo-blox-builder/commit/4f621dfa3a5ab798bea17ad2760bd61815c76f25
+
+# Old text that no longer works
+
+## Template block
+
+### OLDER: An initial attempt
+
+From `./layouts_tempaltes/partials/blox/markdown.html`
+
+```html
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $title }}
+  </div>
+
+  {{ with $text }}
+  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
+  </div>
+  {{ end }}
+  
+</div>
+```
+
+How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.
+
+Here's the problem:
+
+![image-20240916185021553](./figures/image-20240916185021553.png)
+
+(Note: in this image I've already colored the background. More on this in a bit.) This corresponds to 
+
+```html
+<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
+  
+  <!-- <div class="md:w-48 flip-section-title"> -->
+  <div class="md:w-48">
+       <div>{{ $title }}</div>
+  </div>
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+  </div>
+
+</div>
+```
+
+We fix this by using `<div class="md:w-48 flip-section-title">` (commented out above), where we define `flip-section-title` in `./assets/css/custom.css`:
+
+```css
+.flip-section-title{
+  padding: 3rem 10px 0px 0px;
+}
+
+.blox-flip-cv{
+  background-color: #F7F7F7;
+}
+```
+
+This gives us:
+
+![image-20240916185259737](./figures/image-20240916185259737.png)
+
+Note that the 3rem padding lined up the first column text with the second. Also observe hwo `.blox-flip-cv`  changed the background color of the section. This is because Hugo encloses each section in a tag:
+
+```html
+<section id="section-flip_cv" class="relative hbb-section blox-flip-cv  " style="padding: 6rem 0 6rem 0;" >
+```
+
+where the `id` is "section-`partial_name`" and the class automaticaly contains "blox-`partial_name`." In this example, the partial is called `flip_cv`. You can see how you can get alternating background colors by specifying the background color in the CSS for each uniquely defined block. 
+
+<mark>In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
+
+
+
+### OLDEST Notes on the existing Markdown Block
+
+From `./layouts_tempaltes/partials/blox/markdown.html`
+
+```html
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $title }}
+  </div>
+
+  {{ with $text }}
+  <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}
+  </div>
+  {{ end }}
+  
+</div>
+```
+
+This does not give the two column split that I'm looking for. Let us draw inspiration from the Bootstrap version of HugoBlox. Here, the two column markdown layout matched the break poitns of the about widget. That is: at some common break point, all home page elements became one column. To be efficient, we can just follow the structure of the `resume-biography` block. 
+
+(How I played with this: make a test copy of `resume-biography-flip` and star hacking away to see if we can break it down into two columns.)
+
+The result is:
+
+```html
+
+<div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
+  <div class="flex-none m-w-[130px] mx-auto md:mx-0">
+
+    <div id="profile" class="flex justify-center items-center flex-col">
+      <div class="portrait-title dark:text-white">
+        <div class="text-3xl font-bold mb-2 mt-6">
+          {{ $title }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+
+  </div>
+
+</div>
+```
+
+I call this `./layouts/partials/blox/flip_markdown.html`. 
+
+A small edit: I did not like that there is a `<div id="profiles">` in a non-profile block. If I simply removeo this, the text is misaligned: ![Screenshot 2024-09-15 at 3.57.21 PM](./figures/Screenshot 2024-09-15 at 3.57.21 PM.png)
+
+Peeking at `./assets_templates/css/blox/biography.css` shows that `.resume-bigroaphy #profile` has additional padding. So let's put this in:
+
+``` html
+<!-- <div id="profile" class="flex justify-center items-center flex-col"> -->
+    <div class="flex justify-center items-center flex-col" style="padding: 30px 10p;position: relative;"> 
+```
+
+Hmm. That did not seem to work. Also, it seems like the left side bar is not actually fixed length.
