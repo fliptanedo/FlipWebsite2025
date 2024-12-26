@@ -8,7 +8,14 @@
 {{ $title := $block.content.title | emojify | $page.RenderString }}
 {{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
 
+{{ $author := $block.content.username | default "admin" }}
 
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
 
 <div class="px-3 flex flex-col md:flex-row justify-center gap-12">
   
@@ -63,6 +70,46 @@
     
     {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
 
+
+    <!-- INTERESTS AND EDUCATION (moved from biography) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">
+
+        {{ with $person.interests }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "interests" | markdownify }}</div>
+          <ul class="list-disc list-inside space-y-1 pl-5">
+            {{ range . }}
+            <li>
+              {{ . | markdownify | emojify }}
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+        {{ with $person.education }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+          <ul class="">
+            {{ range . }}
+            <li class="flex items-start gap-3">
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+              <div class="description">
+                <p class="course">{{ .area }}{{ with .year }}, {{ . }}{{ end }}</p>
+                <p class="text-sm">{{ .institution }}</p>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+    </div>
+    <!-- /INTERESTS and EDUCATION -->
+
   </div>
+
+
+
 
 </div>

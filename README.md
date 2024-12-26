@@ -888,6 +888,175 @@ Here's what it looks like in `./content/_index.md`:
 
 We commented out the old version. 
 
+## Comment blurb
+
+```html
+    {{ with ($block.content.blurb | emojify | $page.RenderString) | default $person_page.Content }}
+    <br /><br />
+    <div class="flex-auto">
+    <!-- <p> -->
+    <div class="comment" style="text-align: left;">
+        {{ . | markdownify | emojify }}
+    </div>
+    <!-- </p> -->
+    </div>
+    {{ end }}
+```
+
+## Interests/Education List 
+
+### Move Lists to CV (flip_cv.html)
+
+We move the **Interests** and **Education** section from `./layouts/partials/blox/resume-biography-flip.html` to `./layouts/partials/blox/resume-biography-flip.html`.
+
+Here's where it ends up:
+
+```html
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+
+
+    <!-- INTERESTS AND EDUCATION (moved from biography) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">
+
+        {{ with $person.interests }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "interests" | markdownify }}</div>
+          <ul class="list-disc list-inside space-y-1 pl-5">
+            {{ range . }}
+            <li>
+              {{ . | markdownify | emojify }}
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+        {{ with $person.education }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+          <ul class="">
+            {{ range . }}
+            <li class="flex items-start gap-3">
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+              <div class="description">
+                <p class="course">{{ .area }}{{ with .year }}, {{ . }}{{ end }}</p>
+                <p class="text-sm">{{ .institution }}</p>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+    </div>
+    <!-- /INTERESTS and EDUCATION -->
+
+  </div>
+
+
+```
+
+Note that we copied and pasted *inside* the division `<div class="flex-auto max-w-prose md:mt-12">` that contains the pre-existing text insertion `{{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}`.
+
+### Custom Icons
+
+<mark>To port</mark>
+
+## Spacing of blocks
+
+After moving the Interests/Education block, the vertical spacing seems a bit off for the biography (`blox-resume-biography-flip`) block:
+
+![](./figures/image-20241226120820956.png)
+
+Oh shoot, this is in the docs: https://docs.hugoblox.com/getting-started/page-builder/#spacing. Here's how to do it. In `./content/authors/admin/_index.md`  go to `sections:`/`-block: resume-biography-flip`  and insert the following:
+
+```yaml
+    design:
+      spacing: 
+        padding: ['5rem', '0', '10rem', '0']
+```
+
+When I was trying to kludge this, I kept messing up because I didn't appreciate that the expected input for `padding` is an array of strings. See the background subsection directly below.
+
+### Background: some spelunking for how this works
+
+The spacing is dictated by the styling of the `section` tag, which one can see in the html source:
+
+```html
+<section id="section-resume-biography-flip" class="relative hbb-section blox-resume-biography-flip  dark" style="padding: 6rem 0 6rem 0;" >
+```
+
+Where does this `section` tag come from? If you search (e.g. `grep`) through the HugoBlox template files (`./layouts_templates/`) you'll find that these are inserted in `./layouts_templates/partials/functions/parse_block_v2.html` around line 136:
+
+```html
+{{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
+<section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+```
+
+So it looks like the key part is `{{with $style}}style="{{. | safeCSS}}"{{end}}`. In turn, `$style` is defined around line 34:
+
+```go
+{{/* Begin widget styling */}}
+{{ $bg := $block.design.background }}
+{{ $style := "" }}
+```
+
+The subsequent lines keep adding things to the `$style` variable. In fact, around like 84 we see the key spot:
+
+```go
+{{ with $block.design.spacing.padding }}
+  {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
+  {{ $style = print $style $style_pad }}
+{{ else }}
+  {{ with $page.Params.design.spacing }}
+    {{/* Fallback to default section spacing setting */}}
+    {{ $style_pad := printf "padding: %s 0 %s 0;" . . }}
+    {{ $style = print $style $style_pad }}
+  {{ end }}
+{{ end }}
+```
+
+Note that the `(delimit . " ")` is a hint that the padding input is an array. 
+
+## Coloring the Home Sections
+
+One of the challenges in the past was coloring each of the partials (sections) on the home screen. In older versions of the Academic theme, the home page would automatically alternate between white and `#F7F7F7` (light gray) backgrounds. This was a subtle visual indicator that separated different sections of the home page. However, it was a bit of a headache for me because I always wanted the bottom section to be white in order to merge seamlessly into the Feynman footer figure, which assumes a white background to give the visual effect of "cutting into" the footer bar: 
+
+![image-20241226125159770](./figures/image-20241226125159770.png)
+
+It turns out that this is quite easy.  See the section on  [Styling](https://docs.hugoblox.com/getting-started/page-builder/#style) in the Hugo Blox docs. In each block, you can simply specify the `css_style` that should be inserted into the `<section>` tag. 
+
+```yaml
+design:
+      columns: '2'
+      css_style: 'background-color: #F7F7F7;'
+```
+
+Doing this in the Flip Markdown block gives
+
+```html
+<section id="section-flip_markdown" class="relative hbb-section blox-flip-markdown  " style="padding: 6rem 0 6rem 0;background-color: #F7F7F7;" >
+```
+
+This is processed in `./layouts_templates/partials/functions/parse_block_v2.html`.
+
+### The Old Way
+
+Observe in our `./assets/css/custom.css ` that `.blox-flip-cv`  changes the background color of the section. This is because Hugo encloses each section in a tag:
+
+```html
+<section id="section-flip_cv" class="relative hbb-section blox-flip-cv  " style="padding: 6rem 0 6rem 0;" >
+```
+
+where the `id` is "section-`partial_name`" and the class automaticaly contains "blox-`partial_name`." In this example, the partial is called `flip_cv`. You can see how you can get alternating background colors by specifying the background color in the CSS for each uniquely defined block. 
+
+~~In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.~~
+
+
+
 # Filling in other pages
 
 At this stage most of the template is set up. Now let's fill in the content.
@@ -994,7 +1163,7 @@ This gives us:
 
 ![image-20240916185259737](./figures/image-20240916185259737.png)
 
-Note that the 3rem padding lined up the first column text with the second. Also observe hwo `.blox-flip-cv`  changed the background color of the section. This is because Hugo encloses each section in a tag:
+Note that the 3rem padding lined up the first column text with the second. Also observe how `.blox-flip-cv`  changed the background color of the section. This is because Hugo encloses each section in a tag:
 
 ```html
 <section id="section-flip_cv" class="relative hbb-section blox-flip-cv  " style="padding: 6rem 0 6rem 0;" >
@@ -1002,7 +1171,7 @@ Note that the 3rem padding lined up the first column text with the second. Also 
 
 where the `id` is "section-`partial_name`" and the class automaticaly contains "blox-`partial_name`." In this example, the partial is called `flip_cv`. You can see how you can get alternating background colors by specifying the background color in the CSS for each uniquely defined block. 
 
-<mark>In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
+<mark> This last paragraph is now included above under **Coloring the Home Sections**. In the future we can let the block background color be something we specify in `./content/_index.md`, but for now we can do it manually.</mark>
 
 
 

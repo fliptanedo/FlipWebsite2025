@@ -67,7 +67,7 @@ education:
   - area: PhD, Physics
     institution: Cornell University (2013)
   - area: MSc, Physics
-    institution: Durham Institute for Particle PHysics Phenomenology (2008)
+    institution: Durham Institute for Particle Physics Phenomenology (2008)
   - area: MASt, Applied Mathematics & Theoretical Physics
     institution: Cambridge University (2007)
   - area: BS, Physics, Mathematics 

@@ -28,8 +28,10 @@ sections:
           fontawesome: fa-user
           url: uploads/resume.pdf
       blurb: |-
-        Flip is the first Filipino-American professor of particle physics. He runs a [Physical Science book club](https://sites.google.com/ucr.edu/physci-book-club/) (Phy-Sci) at his local independent book store. He enjoys swimming, basketball, and speculative fiction.
+        Flip is the first Filipino-American professor of particle physics. He runs a [Physical Science book club (Phy-Sci)](https://sites.google.com/ucr.edu/physci-book-club/) at his local independent book store. He enjoys swimming, basketball, and speculative fiction.
     design:
+      spacing: 
+        padding: ['5rem', '0', '10rem', '0']
       css_class: dark
       background:
         color: black
@@ -56,6 +58,7 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
+      css_style: 'background-color: #F7F7F7;'
     cv_pdf:
       url: /files/Tanedo.pdf
       text: 'Full CV (pdf)'
@@ -139,6 +142,10 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
+      # css_style: 'background-color: #F7F7F7;'
+
+      
+
 
   - block: markdown
     content:
