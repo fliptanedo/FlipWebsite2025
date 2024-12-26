@@ -16,9 +16,19 @@ sections:
       username: admin
       text: ""
       # Show a call-to-action button under your biography? (optional)
-      button:
-        text: Download CV
-        url: uploads/resume.pdf
+      # button:
+      #   text: Download CV
+      #   url: uploads/resume.pdf
+      # Have a few buttons 
+      buttons:
+        - text: Download CV
+          fontawesome: fa-download
+          url: uploads/resume.pdf
+        - text: Professional Biosketch
+          fontawesome: fa-user
+          url: uploads/resume.pdf
+      blurb: |-
+        Flip is the first Filipino-American professor of particle physics. He runs a [Physical Science book club](https://sites.google.com/ucr.edu/physci-book-club/) (Phy-Sci) at his local independent book store. He enjoys swimming, basketball, and speculative fiction.
     design:
       css_class: dark
       background:
@@ -46,7 +56,11 @@ sections:
         Please reach out to collaborate 
     design:
       columns: '2'
-    cv_pdf: ./files/Tanedo.pdf
+    cv_pdf:
+      url: /files/Tanedo.pdf
+      text: 'Full CV (pdf)'
+    # cv_pdf: ./files/Tanedo.pdf
+    # url: uploads/resume.pdf
     awards:
       - thing: NSF CAREER Award
         link: https://beta.nsf.gov/funding/opportunities/faculty-early-career-development-program-career
@@ -116,19 +130,6 @@ sections:
   - block: flip_markdown
     content:
       title: 'Flip Markdown'
-      subtitle: ''
-      text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-        
-        Please reach out to collaborate 
-    design:
-      columns: '2'
-
-  - block: flip_markdown_original
-    content:
-      title: 'Flip Markdown Original'
       subtitle: ''
       text: |-
         Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
@@ -215,7 +216,7 @@ sections:
       # Reduce spacing
       spacing:
         padding: [0, 0, 0, 0]
-        
+
   - block: cta-card
     demo: true # Only display this section in the Hugo Blox Builder demo site
     content:

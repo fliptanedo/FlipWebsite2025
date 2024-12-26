@@ -39,6 +39,23 @@ profiles:
     url: https://github.com/fliptanedo
   - icon: academicons/orcid
     url: https://orcid.org/0000-0003-4642-2199
+  - icon: academicons/inspire
+    url: https://inspirehep.net/author/profile/P.Tanedo.1
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?hl=en&user=BQuJtTIAAAAJ&view_op=list_works&sortby=pubdate
+  - icon: academicons/arxiv
+    url: https://arxiv.org/search/?searchtype=author&query=Tanedo%2C+P
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/flip-tanedo-524137221/
+  # - icon: publons
+  #   icon_pack: ai
+  #   link: https://publons.com/author/637273/philip-tanedo#profile
+  # - icon: slideshare
+  #   icon_pack: fab
+  #   link: https://www.slideshare.net/fliptanedo
+  # - icon: tree-solid
+  #   url: https://academictree.org/physics/tree.php?pid=715850
+
 
 interests:
   - Dark matter

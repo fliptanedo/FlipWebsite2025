@@ -719,9 +719,184 @@ Here's how it looks so far:
 
 ![Screenshot 2024-09-18 at 11.14.40 AM](./figures/Screenshot 2024-09-18 at 11.14.40 AM.png)
 
-<mark>To do: fill in CV link</mark>
+Now let's fill in that CV link. I based this on the implementation in `./layouts_templates/partial/blox/resume-biography.html` and the corresponding lines in the default `./content/_index.md`:
 
-## Notes
+```yaml
+      button:
+        text: Download CV
+        url: uploads/resume.pdf
+```
+
+So here's what we do: in `./content/_index.md` go to `-block: flip_cv` and modify the `cv_pdf` attribute:
+
+```yaml
+    cv_pdf:
+      url: /files/Tanedo.pdf
+      text: 'Full CV (pdf)'
+    # cv_pdf: ./files/Tanedo.pdf
+    # url: uploads/resume.pdf
+```
+
+The commented out lines are (1) the old version, and (2) the template. In `./layouts/partials/blox/flip_cv.html`:
+
+```html
+       <!-- FLIP: updated with $block.cv_pdf -->
+        <!-- FLIP: and {{.url}} and {{.text}} parts -->
+        <br>
+        <p style="text-align: center;">
+        {{ with $block.cv_pdf }}
+        <a href="{{.url}}" class=...>
+        ...
+        </svg> 
+        <!-- Download Full CV  -->
+        {{.text}}
+        </a>
+        {{ end }}
+        </p>
+        <!-- /FLIP -->
+```
+
+I've inserted ellipses (...) for parts that are unchanged.
+
+# Refining the home page
+
+## Icon bar (resume-biography-flip)
+
+### Moving the Icon Bar
+
+The icon bar lives in `./resume-biography-flip.html`:
+
+```html
+    <ul class="network-icon dark:text-zinc-100">
+      {{ range $person.profiles }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := .url | default .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ $link = (.url | default .link) | relLangURL }}
+        {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <li>
+        <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
+           {{ with .label }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }}>
+          {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.5rem;\"")  }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>	
+```
+
+We're going to move this to below the `{{ with $block.content.button }}` line int he same file. This is moving it from the left column to nearly the bottom of the second column. You can throw in a line break `<br />` or two for spacing.
+
+### Updating the Icon Bar
+
+Where is the list of icons stored? It is not in `./content/_index.md`. Observe that Hugo runs over `range $person.profiles`. This means we should go look under `./content/authors/admin/_index.md`. Here you find the profiles list, which I've now updaetd:
+
+```yaml
+profiles:
+  - icon: at-symbol
+    url: 'mailto:flip.tanedo@ucr.edu'
+    label: E-mail Me
+  - icon: brands/x
+    url: https://twitter.com/FlipTanedo
+  - icon: brands/github
+    url: https://github.com/fliptanedo
+  - icon: academicons/orcid
+    url: https://orcid.org/0000-0003-4642-2199
+  - icon: academicons/inspire
+    url: https://inspirehep.net/author/profile/P.Tanedo.1
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?hl=en&user=BQuJtTIAAAAJ&view_op=list_works&sortby=pubdate
+  - icon: academicons/arxiv
+    url: https://arxiv.org/search/?searchtype=author&query=Tanedo%2C+P
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/flip-tanedo-524137221/
+  # - icon: publons
+  #   icon_pack: ai
+  #   link: https://publons.com/author/637273/philip-tanedo#profile
+  # - icon: slideshare
+  #   icon_pack: fab
+  #   link: https://www.slideshare.net/fliptanedo
+  # - icon: tree-solid
+  #   url: https://academictree.org/physics/tree.php?pid=715850
+```
+
+Note the commented out icons. Some of these (publons, slideshare) I no longer use. Others (academictree) are not on academicians. I tried downloading the tree-solid svg from fontawesome and placing it into `./assets/media/icons/hero` but it didn't get colored like the other icons:
+
+![image-20241225222015918](./figures/image-20241225222015918.png)
+
+You can download a white svg, but then it doesn't get colored when mouseovered:
+
+![image-20241225221807435](./figures/image-20241225221807435.png)
+
+<mark>Something to sort out for later. How do we include other font awesome fonts? How do we include custom svgs?</mark>
+
+## Links (resume-biography-flip)
+
+Adding links to the professional blurb.
+
+Here's how it was last time. It uses the fontawesome icons directly rather than using the svg code that Hugo Blox now defaults to. 
+
+```
+<i class="fas fa-download  pr-1 fa-fw"></i> Download his 
+<a href="/files/Tanedo.pdf" target="_blank">CV</a>
+ |  
+<i class="fas fa-user  pr-1 fa-fw"></i> A professional 
+<a href="./post/bio/">biosketch</a>.
+```
+
+In `./layouts/partials/blox/resume-biography-flip.html`:
+
+```html
+   <!-- FLIP -->
+    <!-- Deleted old button -->
+    {{ with $block.content.buttons }}
+    {{ range $block.content.buttons }}
+    <a href="{{.url}}" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+    <i class="fas {{.fontawesome}} pr-1 fa-fw"></i> &nbsp; 
+    {{.text}}
+    </a> &nbsp; 
+    {{ end }}
+    {{ end }}
+    <!-- /FLIP -->
+```
+
+The `&nbsp;` is a non-breaking space.
+
+Here's what it looks like in `./content/_index.md`:
+
+```yaml
+      # Show a call-to-action button under your biography? (optional)
+      # button:
+      #   text: Download CV
+      #   url: uploads/resume.pdf
+      # Have a few buttons 
+      buttons:
+        - text: Download CV
+          fontawesome: fa-download
+          url: uploads/resume.pdf
+        - text: Professional Biosketch
+          fontawesome: fa-user
+```
+
+We commented out the old version. 
+
+# Filling in other pages
+
+At this stage most of the template is set up. Now let's fill in the content.
+
+## 404 Page
+
+<mark>to do</mark>
+
+# Notes
 
 * Colors
   * Dark green for header: `background-color: #012622`; I may want to go with a dark moss green rather than a dark pine green.
@@ -757,7 +932,7 @@ Here's how it looks so far:
 * Responsive design: the phone view looks weird for default blox: no margin. 
   * Geo fixed this here: https://github.com/HugoBlox/hugo-blox-builder/commit/4f621dfa3a5ab798bea17ad2760bd61815c76f25
 
-# Old text that no longer works
+# Obsoloete notes; historical only
 
 ## Template block
 
