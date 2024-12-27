@@ -135,6 +135,23 @@ sections:
       # - thing: '[APS IDEA UCR lead](https://www.aps.org/programs/innovation/fund/idea.cfm)'
       # - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
 
+
+  - block: flip_markdown
+    content:
+      title: 'Research'
+      subtitle: ''
+      text: |-
+        I am a theoretical particle physicist. My main focus has been the search for an fundamental theory of dark matter. I specialize in quantum field theories with holographic hidden sectors. These models of dark sectors inform our experimental program to discover new physics. The puzzles and tools in particle physics spill beyond historical disciplines: I am excited about the overlaps with particle cosmology, machine learning, and information.
+
+        Find more about my [test](link) current work on [Inspire](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) <i class="ai ai-google-scholar-square ai-3x"></i>
+
+        
+    design:
+      columns: '2'
+      # css_style: 'background-color: #F7F7F7;'
+
+
+
   - block: flip_markdown
     content:
       title: 'Flip Markdown'

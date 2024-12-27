@@ -1158,6 +1158,7 @@ At this stage most of the template is set up. Now let's fill in the content.
 * Colors
   * Dark green for header: `background-color: #012622`; I may want to go with a dark moss green rather than a dark pine green.
   * `#F7F7F7` is the very light gray that the old Bootstrap template used to differentiate sections. 
+  * A nice green color for fonts: `#4CAF50`
   * I may want to make a more transparent version of my amibgram for the footer
 * Do I want the profile picture to be larger and higher res? The default template processes the profile image through a Hugo algorithm to shrink the file size. However, these profile pictures are significant when department pull photos for seminar flyers. 
 * From George Cushen on Discord: 10/29/2023 (is that date possibly right?)

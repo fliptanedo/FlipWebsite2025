@@ -15,6 +15,17 @@ body {
 }
 
 
+/* mainly affects biography  */
+/*a {
+  color: #4CAF50;
+}*/
+
+/* for main text of markdown block */
+.prose a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
 /* No longer needed. Can do this in_index.md  */
 /*.blox-flip-cv{*/
   /* light gray background */

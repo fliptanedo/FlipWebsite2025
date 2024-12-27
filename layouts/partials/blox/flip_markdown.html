@@ -37,7 +37,7 @@
   <div class="flex-auto max-w-prose md:mt-12">
     {{ with $text }}
     <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">
-    {{ . }}
+    {{ . | markdownify }}
     </div>
     {{ end }}
   </div>
