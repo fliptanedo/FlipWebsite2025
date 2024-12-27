@@ -1053,6 +1053,33 @@ Here's the revision:
 
 I made a few other minor tweaks. Just be sure to copy the latest `flip_cv.html` version.
 
+### Loading Academicons
+
+We'll use Hugo Blox's [hook system](https://docs.hugoblox.com/reference/extend/). Create the following file: `.layouts/partials/hooks/head-end/academicons-flip.html`. 
+
+```html
+<!-- Load Academicons -->
+<!-- https://jpswalsh.github.io/academicons/ -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+```
+
+This mirrors how we called Font Awesome.
+
+How to use these: 
+
+```
+<i class="ai ai-inspire ai"></i>
+```
+
+Also for fontawesome:
+
+```
+<i class="fa-regular fa-flask"></i>
+```
+
+
+
 ## Spacing of blocks
 
 After moving the Interests/Education block, the vertical spacing seems a bit off for the biography (`blox-resume-biography-flip`) block:

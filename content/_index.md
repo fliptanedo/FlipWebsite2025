@@ -143,7 +143,7 @@ sections:
       text: |-
         I am a theoretical particle physicist. My main focus has been the search for an fundamental theory of dark matter. I specialize in quantum field theories with holographic hidden sectors. These models of dark sectors inform our experimental program to discover new physics. The puzzles and tools in particle physics spill beyond historical disciplines: I am excited about the overlaps with particle cosmology, machine learning, and information.
 
-        Find more about my [test](link) current work on [Inspire](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) <i class="ai ai-google-scholar-square ai-3x"></i>
+        Find more about my [test](link) current work on [Inspire <i class="ai ai-inspire ai"></i>](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) 
 
         
     design:
