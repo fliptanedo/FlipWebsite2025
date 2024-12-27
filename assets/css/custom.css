@@ -15,11 +15,12 @@ body {
 }
 
 
-.blox-flip-cv{
+/* No longer needed. Can do this in_index.md  */
+/*.blox-flip-cv{*/
   /* light gray background */
 /*  background-color: #F7F7F7; */
-  padding: 3rem 10px 0px 0px;
-}
+/*  padding: 3rem 10px 0px 0px;*/
+/*}*/
 
 .flip-section-title{
   padding: 3rem 10px 0px 0px;
@@ -28,6 +29,7 @@ body {
 .flip-section-md{
   padding: 2rem 10px 0px 0px;
 }
+
 
 
 .comment{

@@ -31,7 +31,7 @@ sections:
         Flip is the first Filipino-American professor of particle physics. He runs a [Physical Science book club (Phy-Sci)](https://sites.google.com/ucr.edu/physci-book-club/) at his local independent book store. He enjoys swimming, basketball, and speculative fiction.
     design:
       spacing: 
-        padding: ['5rem', '0', '10rem', '0']
+        padding: ['3rem', '0', '10rem', '0']
       css_class: dark
       background:
         color: black
@@ -59,6 +59,8 @@ sections:
     design:
       columns: '2'
       css_style: 'background-color: #F7F7F7;'
+      spacing: 
+        padding: ['5rem', '0', '10rem', '0']
     cv_pdf:
       url: /files/Tanedo.pdf
       text: 'Full CV (pdf)'
@@ -120,15 +122,18 @@ sections:
         year: 2008
         logo: /logo/icon_S.png
     service:
-      - thing: Fall Physics Colloquium Chair 
-      - thing: Website Committee 
-      - thing: '[CNAS Equity Advisor](https://diversity.ucr.edu/equity-advisors)'
-      - thing: Climate Committee
+      - thing: '[HEPAP member](https://science.osti.gov/hep/hepap/)'
+      - thing: '[APS DPF Sakurai Dissertation Prize Committee](https://www.aps.org/funding-recognition/award/jj-noriko-sakurai-dissertation/)'
+      - thing: UCR Fall Physics Colloquium Chair 
+      - thing: UCR Physics Website Committee 
+      - thing: UCR Physics sClimate Committee
+      - thing: '[CNAS Equity Advisor](https://diversity.ucr.edu/equity-advisors/)'
       - thing: '[Phy Sci Book Club
       Moderator](https://www.cellardoorbookstore.com/book-clubs)'
       - thing: '[POWUR faculty adviser](https://sites.google.com/view/ucr-powur/)'
-      - thing: '[APS IDEA UCR lead](https://www.aps.org/programs/innovation/fund/idea.cfm)'
-      - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
+      - thing: '[UCR ARA Advisory Committee](https://ara.ucr.edu/about-us/) '
+      # - thing: '[APS IDEA UCR lead](https://www.aps.org/programs/innovation/fund/idea.cfm)'
+      # - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
 
   - block: flip_markdown
     content:
@@ -144,7 +149,6 @@ sections:
       columns: '2'
       # css_style: 'background-color: #F7F7F7;'
 
-      
 
 
   - block: markdown

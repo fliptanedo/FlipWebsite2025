@@ -10,7 +10,7 @@
 {{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
 
 
-<!-- flip_markdown (old version) -->
+<!-- flip_markdown -->
 <!-- <div class="px-3 flex flex-col justify-center md:flex-row gap-12"> -->
 <!--  
   WHAT THIS SAYS: 
@@ -24,15 +24,23 @@
   but for larger sizes...
     md:flex-row: display them as columns 
 -->
-<!-- hugo markdown default -->
+<!-- hugo markdown -->
 <!-- <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6"> -->
 <!-- HERE'S WHAT I'M USING -->
-<div class="flex flex-col justify-center gap-8 justify-center px-6 md:flex-row">
+<div class="flex flex-col justify-center  gap-3 justify-center px-6 md:flex-row">
+<!-- FLIP -->
 
-  <div class="text-3xl font-bold mb-2 mt-6 md:w-48 flip-section-md">
+
+<!--   <div class="text-3xl font-bold mb-2 mt-6 md:w-48 flip-section-md">
       {{ $title }}
   </div>
+ -->
 
+  <div class="md:w-48 flip-section-md">
+    <div class="text-3xl font-bold mb-2 mt-6">
+      {{ $title }}
+    </div>
+  </div>
 
   <div class="flex-auto max-w-prose md:mt-12">
     {{ with $text }}

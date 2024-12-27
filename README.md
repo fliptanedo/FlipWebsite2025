@@ -540,6 +540,64 @@ In `./assets/css/custom.css`:
 
 This spacing is needed to align the title on large screens.
 
+### flip_markdown.html
+
+Here's what my final markdown (template) block looks like. It is my `./layouts/partials/blox/flip_markdown.html`
+
+```html
+<div class="px-3 flex flex-col items-center md:flex-row justify-center gap-12">
+
+  <div class="md:w-48 flip-section-md">
+    <div class="text-3xl font-bold mb-2 mt-6">
+      {{ $title }}
+    </div>
+  </div>
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+  </div>
+
+</div>
+```
+
+(I've omitted the hugo code at the top of the page.) The `items-center` is what center justifies the title when in a compressed view. It seems like everything is otherwise left-justified when there's enough room (two column).
+
+### Issues with justification
+
+Here's a puzzle. With the existing Tailwind code, I am able to use `flex` to work with a one-column layout for small screens and a two-column layout for any screens larger than small. This is the `md:...` class which gives a class for all screens "medium and larger."
+
+Unfortunately, we have a problem. The standard Tailwind `justify-center` (horizontal alignment) doesn't seem to work in the conditional/responsive design context. I think this is because I'm not actually compiling my Tailwind code. Tailwind needs to be compiled: this keeps the resulting sites small. Instead of learning how to use Tailwind right now, I'm just using whatever classes are in the Hugo Blox default Tailwind compilation. (Am I even using the right word here?)
+
+So here's the problem: I am unable to have `justify-center` only in single column mode, but otherwise have `justify-start` (left justified) in two-column mode. This is a problem for section titles. For now I'll have to live with all section titles left-justified. 
+
+<mark>Work on this next time around</mark>
+
+#### Justify-center
+
+`justify-center`
+
+Small screen:
+
+![image-20241226180837290](./figures/image-20241226180837290.png)
+
+![image-20241226180814148](./figures/image-20241226180814148.png)
+
+#### items-center
+
+`items-center`
+
+![image-20241226180916547](./figures/image-20241226180916547.png)
+
+![image-20241226180747574](./figures/image-20241226180747574.png)
+
+#### How the default Hugo Blox Markdown looks
+
+The default Hugo Blox Markdown is single column. The section titles are center justified. I have been unable to find a way to have a conditional two column mode.
+
+![image-20241226192114784](./figures/image-20241226192114784.png)
+
+<mark>Work on this after I get used to Tailwind.</mark>
+
 
 
 ## Font
@@ -961,9 +1019,39 @@ Here's where it ends up:
 
 Note that we copied and pasted *inside* the division `<div class="flex-auto max-w-prose md:mt-12">` that contains the pre-existing text insertion `{{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}`.
 
-### Custom Icons
+### Custom Icons for Education
 
-<mark>To port</mark>
+Here's the revision:
+
+```html
+<!-- REVISED VERSION -->
+      <!-- Changed from $person to $block -->
+      {{ with $block.education }}
+      <div class="">
+        <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+        <ul class="">
+          {{ range . }}
+          <li class="flex items-start gap-3">
+            {{ if .logo }}
+              <img src="{{ $.Site.BaseURL }}img/{{ .logo }}" style="height:1.2rem; float: left; padding-right: 4px; padding-top:3px;">
+            {{ else }}
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+            {{ end }}
+            <!-- <div class="description"> -->
+              {{ .course_short }}
+              {{ with .institution_short }}, {{ . }}{{ end }}
+              {{ with .year }}({{ . }}){{ end }}
+              <br />
+            <!-- </div> -->
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+```
+
+I made a few other minor tweaks. Just be sure to copy the latest `flip_cv.html` version.
 
 ## Spacing of blocks
 

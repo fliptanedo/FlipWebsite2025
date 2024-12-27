@@ -31,6 +31,20 @@ In 2024 HugoBlox moved from Bootstrap to Tailwind.
 * https://refine.dev/blog/tailwind-grid/#span-rows
 * https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
 
+### Tailwind Breakpoints
+
+The tailwind breakpoints are `sm`, `md`, `lg`, `xl` , and `2xl`. These correspond to *minimum* widths. 
+
+For example ([source](https://www.locofy.ai/blog/create-responsive-flex-layout-component)):
+
+```html
+<div class="w-16 md:w-32 lg:w-48">My width changes</div>
+```
+
+This gives a default width of 16 (4rem) by default (small) that increases to 32 for medium screens and 48 for larger screens. 
+
+
+
 ## Blox edits
 
 ### Blox CSS Files
