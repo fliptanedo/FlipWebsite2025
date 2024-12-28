@@ -26,21 +26,14 @@ body {
   text-decoration: none;
 }
 
-/* No longer needed. Can do this in_index.md  */
-/*.blox-flip-cv{*/
-  /* light gray background */
-/*  background-color: #F7F7F7; */
-/*  padding: 3rem 10px 0px 0px;*/
-/*}*/
-
 .flip-section-title{
   padding: 3rem 10px 0px 0px;
 }
 
+/* I can retire this  */
 .flip-section-md{
   padding: 2rem 10px 0px 0px;
 }
-
 
 
 .comment{
@@ -48,6 +41,17 @@ body {
   color: #8B8B8B;
   font-size: .8rem;
   line-height: 130%;
+}
+
+/* HACKS */
+.size32{
+  width: 32px;
+  height: 32px;
+}
+
+.size64{
+  width: 64;
+  height: 64px;
 }
 
 /*

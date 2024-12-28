@@ -1,0 +1,158 @@
+{{/* Hugo Blox: Markdown */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
+
+<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
+  
+  <div class="md:w-48 flip-section-title">
+    <div class="text-3xl font-bold mb-2">
+    {{ $title }}
+    </div>
+
+    {{ if $block.content.group_logo }}
+    <div class="flex flex-row md:flex-col">
+      <!-- These w-64 divs are a hack -->
+      <!-- I don't want to deal with  -->
+      <!-- Tailwind right now. -->
+      <div class="w-64 md:hidden"></div>
+      <div class="w-64 md:hidden"></div>
+      <div class="w-64 md:hidden"></div>
+      <div class="w-64 sm:hidden"></div>
+      <div class="flex-auto">
+        <div class="md:hidden"><br></div>
+      <img src="{{ $block.content.group_logo }}">
+      </div>
+      <div class="w-64 sm:hidden"></div>
+      <div class="w-64 md:hidden"></div>
+      <div class="w-64 md:hidden"></div>
+      <div class="w-64 md:hidden"></div>
+    </div>
+    {{ end }}
+
+    <!-- FLIP: updated with $block.cv_pdf -->
+    <!-- FLIP: and {{.url}} and {{.text}} parts -->
+    <br>
+    <p style="text-align: center;">
+    {{ with $block.cv_pdf }}
+    <a href="{{.url}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+    <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+    </svg> 
+    <!-- Download Full CV  -->
+    {{.text}}
+    </a>
+    {{ end }}
+    </p>
+    <!-- /FLIP -->
+
+  </div>
+
+
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    
+    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+
+
+    <!-- INTERESTS AND EDUCATION (moved from biography) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">
+
+        {{ with $person.interests }}
+        <div class="">
+          <div class="section-subheading mb-3">
+          <!-- {{ i18n "interests" | markdownify }} -->
+          Research
+          </div>
+          <!-- <ul class="list-disc list-inside space-y-1 pl-5"> -->
+          <ul>
+            {{ range . }}
+            <li>
+              {{ . | markdownify | emojify }}
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
+<!-- FLIP: original version -->
+<!-- 
+        {{ with $person.education }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+          <ul class="">
+            {{ range . }}
+            <li class="flex items-start gap-3">
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+              <div class="description">
+                <p class="course">{{ .area }}{{ with .year }}, {{ . }}{{ end }}</p>
+                <p class="text-sm">{{ .institution }}</p>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+ -->
+
+<!-- REVISED VERSION: EDUCATION -->
+      <!-- Changed from $person to $block -->
+      {{ with $block.education }}
+      <div class="">
+        <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+        <ul class="">
+          {{ range . }}
+          <li class="flex items-start gap-3">
+            {{ if .logo }}
+              <img src="{{ $.Site.BaseURL }}img/{{ .logo }}" style="height:1.2rem; float: left; padding-right: 4px; padding-top:3px;">
+            {{ else }}
+              {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+            {{ end }}
+            <!-- <div class="description"> -->
+              {{ .course_short }}{{ with .institution_short }}, {{ . }}{{ end }}
+              {{ with .year }}({{ . }}){{ end }}
+              <br />
+            <!-- </div> -->
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+
+    </div>
+    <!-- /INTERESTS and EDUCATION -->
+
+
+<!--  -->
+    {{ with $block.service }}
+    <p style="font-size: .8rem; padding-top: 2em;">
+        <b>Service</b>:
+        {{ range . }}
+        {{ .thing | markdownify }} &middot;
+        {{ end }}
+    </p>
+    {{ end }}
+<!--  -->
+
+
+  </div>
+
+
+
+
+</div>

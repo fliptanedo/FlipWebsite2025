@@ -1,0 +1,30 @@
+{{/* Hugo Blox: Markdown */}}
+{{/* modified by Flip Tanedo */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+<!-- FIXED the damn alignment bug I had 12/28 -->
+
+<!-- REMINDER: flex-row means "in a row" -->
+<!-- flex-col menas "in a column" -->
+
+<div class="flex flex-col gap-8 justify-center w-full px-6 md:flex-row">
+
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white md:w-48 justify-center">
+    {{ $title }}
+  </div>
+
+  {{ with $text }}
+  <div class="prose max-w-prose prose-slate lg:prose-xl dark:prose-invert">
+    {{ . | markdownify }}
+  </div>
+  {{ end }}
+
+</div>

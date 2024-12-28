@@ -1,0 +1,63 @@
+{{/* Hugo Blox: Markdown */}}
+{{/* modified by Flip Tanedo */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+
+<!-- ORIGINAL: Blox Markdown -->
+<!-- 
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6 md:flex-row justify-center gap-12">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $title }}
+  </div>
+
+  {{/* We use DIV rather than P to support `prose` class and multiple paragraphs */}}
+  {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
+</div>
+ -->
+<!-- /ORIGINAL -->
+
+
+<!-- REMINDER: flex-row means "in a row" -->
+<!-- flex-col menas "in a column" -->
+
+<div class="
+  flex 
+  flex-col 
+  gap-8 
+  justify-center 
+  w-full 
+  px-6 
+  md:flex-row
+  ">
+
+<!-- <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6 md:flex-row justify-center gap-12"> -->
+  <!-- <div class="text-3xl font-bold mb-2 mt-6 md:w-48 flip-section-md"> -->
+  <div class="flex w-48 justify-center">
+    {{ $title }}
+  </div>
+
+  <div class="flex">
+    TEST <br \>
+    TEST <br \>
+    TEST <br \>
+    TEST <br \>
+  </div>
+
+<!-- 
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}
+    <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">
+    {{ . | markdownify }}
+    </div>
+    {{ end }}
+  </div> -->
+
+</div>

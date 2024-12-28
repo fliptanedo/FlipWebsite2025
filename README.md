@@ -45,10 +45,29 @@ This doesn't break anything. It looks like I'm calling Hugo 0.126.
 
 ### Tailwind
 
+* **Update:** it became unbearable to *not* use the gamut of Tailwind functions. 
+
+  * See [Hugo Blox reference on extending with Tailwind](https://docs.hugoblox.com/reference/extend/)
+
+  * The trick is that you have to run the following junk:
+    ```shell
+    npm install -g pnpm && hugo && hugo mod vendor && cd ./_vendor/github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind/ && pnpm i && export HB_TW_CONTENT='../../../../../../hugo_stats.json' && npx tailwindcss -i ./assets/css/styles.css --config ./tailwind.config.js -o ../../../../../../assets/dist/wc.min.css --minify --postcss && cd ../../../../../../ && rm -rf _vendor
+    ```
+
+  * I'm going to [make a zsh script](https://www.geeksforgeeks.org/creating-and-running-bash-and-zsh-scripts/) for this. I'll call it `flip_hugo_tailwind.zsh` and palce it in the website root directory. 
+
+    * Don't forget the permissions: ` chmod +x flip_hugo_tailwind.zsh`
+    * Run with: `./flip_hugo_tailwind.zsh  `
+    * So now every time I need to use some Tailwind code, I can run `./flip_hugo_tailwind.zsh  ` (I've checked that this works)
+    * I do *not* think you have to install `nvm` or `node` separately. 
+
 * In 2024, HugoBlox moved from Bootstrap to Tailwind CSS as its CSS framework. This broke a *lot* of my workflow from previous years. This year I am rebuilding from scratch while learning Tailwind. 
-* **Strategy**: I'm not going to touch Tailwind at all this round. I'll try to keep my CSS factored out so that in the future I can go over a CSS file and Tailwind-ify it. 
+
+* ~~**Strategy**: I'm not going to touch Tailwind at all this round. I'll try to keep my CSS factored out so that in the future I can go over a CSS file and Tailwind-ify it.~~
+
 * The way Tailwind works is that it offers a *large* library of styles. In order to save on loading times, you have to run a script which parses your code so that *only* the styles that your site uses are saved to a compact (minified) css style file. Since I do not want to run Tailwind for this set of iterations, I am limited to the Tailwind classes that are already in the defautl Hugo Blox template. For example, we have access to class `w-64` and `w-12` for widths, but not any other width in between. 
-* Open question for next time: how does it work when I run Tailwind on my own local site? Will it produce a separate CSS file that I attach to `custom.css`?
+
+* ~~Open question for next time: how does it work when I run Tailwind on my own local site? Will it produce a separate CSS file that I attach to `custom.css`?~~
 
 ### Record Keeping
 
@@ -510,93 +529,39 @@ The older Bootstrap HugoBlox template had these great two column responsive temp
 
 As of this writing the Tailwind Hugoblox version does not yet have such a template. However, it looks like it should be relatively straightforward to adapt such a block from the original `markdown` block in the Bootstrap version.
 
-### A better Markdown Block
+### A working Markdown block
 
-After tweaking `flip_cv.html` I think there is a cleaner way to refine the markdown block. The original attempt is below. I'm saving it as `flip_markdown_original.html`. The goal is to strip away references to `resume-biography` classes to have a bare minimum. 
+(Updated 12/26/24)
+
+Here's what it looks like:
 
 ```html
-<div class="px-3 flex flex-col md:flex-row justify-center gap-12">
+<div class="flex flex-col gap-8 justify-center w-full px-6 md:flex-row">
 
-  <div class="md:w-48 flip-section-md">
-    <div class="text-2xl font-bold mb-2 mt-6">
-      {{ $title }}
+  <!-- LEFT COLUMN/TITLE -->
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white w-full md:w-48 justify-center">
+      <div>{{ $title }}</div>
+  </div>
+
+  <!-- RIGHT COLUMN/BODY -->
+  <div class="flex-auto max-w-prose">
+    <div class="prose max-w-prose prose-slate lg:prose-xl
+    dark:prose-invert">
+    {{ with $text }}
+    {{ . | markdownify }}
+    {{ end }}
     </div>
   </div>
-
-  <div class="flex-auto max-w-prose md:mt-12">
-    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
-  </div>
-
+  
 </div>
 ```
 
-In `./assets/css/custom.css`:
+Features:
 
-```css
-.flip-section-md{
-  padding: 2rem 10px 0px 0px;
-}	
-```
-
-This spacing is needed to align the title on large screens.
-
-### flip_markdown.html
-
-Here's what my final markdown (template) block looks like. It is my `./layouts/partials/blox/flip_markdown.html`
-
-```html
-<div class="px-3 flex flex-col items-center md:flex-row justify-center gap-12">
-
-  <div class="md:w-48 flip-section-md">
-    <div class="text-3xl font-bold mb-2 mt-6">
-      {{ $title }}
-    </div>
-  </div>
-
-  <div class="flex-auto max-w-prose md:mt-12">
-    {{ with $text }}<div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</div>{{ end }}
-  </div>
-
-</div>
-```
-
-(I've omitted the hugo code at the top of the page.) The `items-center` is what center justifies the title when in a compressed view. It seems like everything is otherwise left-justified when there's enough room (two column).
-
-### Issues with justification
-
-Here's a puzzle. With the existing Tailwind code, I am able to use `flex` to work with a one-column layout for small screens and a two-column layout for any screens larger than small. This is the `md:...` class which gives a class for all screens "medium and larger."
-
-Unfortunately, we have a problem. The standard Tailwind `justify-center` (horizontal alignment) doesn't seem to work in the conditional/responsive design context. I think this is because I'm not actually compiling my Tailwind code. Tailwind needs to be compiled: this keeps the resulting sites small. Instead of learning how to use Tailwind right now, I'm just using whatever classes are in the Hugo Blox default Tailwind compilation. (Am I even using the right word here?)
-
-So here's the problem: I am unable to have `justify-center` only in single column mode, but otherwise have `justify-start` (left justified) in two-column mode. This is a problem for section titles. For now I'll have to live with all section titles left-justified. 
-
-<mark>Work on this next time around</mark>
-
-#### Justify-center
-
-`justify-center`
-
-Small screen:
-
-![image-20241226180837290](./figures/image-20241226180837290.png)
-
-![image-20241226180814148](./figures/image-20241226180814148.png)
-
-#### items-center
-
-`items-center`
-
-![image-20241226180916547](./figures/image-20241226180916547.png)
-
-![image-20241226180747574](./figures/image-20241226180747574.png)
-
-#### How the default Hugo Blox Markdown looks
-
-The default Hugo Blox Markdown is single column. The section titles are center justified. I have been unable to find a way to have a conditional two column mode.
-
-![image-20241226192114784](./figures/image-20241226192114784.png)
-
-<mark>Work on this after I get used to Tailwind.</mark>
+* Title text is center justified in 1on column, top justified in 2 column mode. Something about the Tailwind styling made this really difficult to do out-of-the box. I had to follow the Hugo Blox documentation to recompile Tailwind through Blox. 
+* Columns are aligned with the biography block so the whole page has clean lines.
+* The body text is large for large screens. 
 
 
 
@@ -712,109 +677,109 @@ With this, the font should be updated.
 
 ## CV Widget
 
-I'm using the revised `flip_markdown` block as a template to make a CV block. The edits will parallel the `flip.cv.html` block from the earlier 2024 Bootstrap version of my site.  Note that Hugo doesn't seem to like capital letters in file names, so we use `flip_cv.html` rather than `flip_CV.html`. The latter produces an error. 
+The CV widget is adapted from the new Markdown template. 
 
-The CV widget is a little tricky because it's more an adaptation of the resume block than the markdown block. I am loathe to do "real" Tailwind edits in this iteration, so I'm further limited by the default Tailwind classes defined in the Hugo Blox template. This means I don't have access to the `max-width` classes: a callenge is to render the group logo at a smaller size on phones: when viewed in column view, the image wants to take up the whole width.
+### Left column
 
-
-
-![image-20240918110214992](./figures/image-20240918110214992.png)
-
-Annoying! Look how wide that is. The code for the above is:
+We modify the left column to include the group icon and CV download link.
 
 ```html
-	{{ if $block.content.group_logo }}
-        <div class="h-auto max-w-xs">
-          <img src="{{ $block.content.group_logo }}">
-        </div>
-	{{ end }}
-```
-
-Instead, we can make the following hack:
-
-```html
-        <div class="flex flex-row">
-          <div class="w-64">.</div>
-          <div class="flex-auto">
-          <img src="{{ $block.content.group_logo }}">
-          </div>
-          <div class="w-64">.</div>
-        </div>
-```
-
-It's not elegant, but it uses the fact that `w-64` is defined without me having to re-run Tailwind. The result is that the logo is proportionally smaller on small screens because tehre are some fixed-width buffers on either side.
-
-That's a reasonable fix for small screens. Now we have to fix it so that it doesn't have these buffers on large screens. To do this, we use Tailwind's responsive design conditional:
-
-```html
-<div class="flex flex-row md:flex-col">
-          <div class="w-64 md:hidden"></div>
-          <div class="flex-auto">
-          <img src="{{ $block.content.group_logo }}">
-          </div>
-          <div class="w-64 md:hidden"></div>
-        </div>
-```
-
-So that for medium sized screens the buffer divs disappear. (In the latest version I've iterated this trick a bit. If you do a quick grep, it looks like we have access to `w-12` without having to recompile Tailwind if you want finer control.)
-
-Now we can also include the `svg` for a button (adapted from resume block):
-
-```html
-<br></br>
-        <p style="text-align: center;">
-        <a target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
-        <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-        </svg> 
-        Download Full CV </a>
-        </p>
-```
-
-The path defines the curve of the button outline. It seems super cumbersome compared to Bootstrap. 
-
-Here's how it looks so far:
-
-![Screenshot 2024-09-18 at 11.14.40 AM](./figures/Screenshot 2024-09-18 at 11.14.40 AM.png)
-
-Now let's fill in that CV link. I based this on the implementation in `./layouts_templates/partial/blox/resume-biography.html` and the corresponding lines in the default `./content/_index.md`:
-
-```yaml
-      button:
-        text: Download CV
-        url: uploads/resume.pdf
-```
-
-So here's what we do: in `./content/_index.md` go to `-block: flip_cv` and modify the `cv_pdf` attribute:
-
-```yaml
-    cv_pdf:
-      url: /files/Tanedo.pdf
-      text: 'Full CV (pdf)'
-    # cv_pdf: ./files/Tanedo.pdf
-    # url: uploads/resume.pdf
-```
-
-The commented out lines are (1) the old version, and (2) the template. In `./layouts/partials/blox/flip_cv.html`:
-
-```html
-       <!-- FLIP: updated with $block.cv_pdf -->
-        <!-- FLIP: and {{.url}} and {{.text}} parts -->
-        <br>
-        <p style="text-align: center;">
-        {{ with $block.cv_pdf }}
-        <a href="{{.url}}" class=...>
-        ...
-        </svg> 
-        <!-- Download Full CV  -->
-        {{.text}}
-        </a>
+  <!-- LEFT COLUMN/TITLE -->
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white w-full md:w-48 justify-center">
+    <!-- Extra flex for column -->
+    <div class="flex flex-col">
+        <div>{{ $title }}</div>
+        <!--  -->
+        {{ with $block.content.group_logo }}
+        <div>
+          <img style="margin-left:auto; margin-right: auto;" class="size-40" src="{{ $block.content.group_logo }}">
+        </div> 
         {{ end }}
-        </p>
-        <!-- /FLIP -->
+        <!--  -->
+        {{ with $block.cv_pdf }}
+        <div class="mt-4" style="margin-left:auto; margin-right: auto;">
+        <a href="{{.url}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+          <svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+            <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+          </svg> 
+          {{.text}} <!-- Download Full CV  -->
+        </a>
+      </div>
+        {{ end }}
+    </div>
+  </div>
+
 ```
 
-I've inserted ellipses (...) for parts that are unchanged.
+### Right column
+
+We place the following *inside* the right column divider:
+
+```html
+<!-- For interests/education -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">
+
+      <!-- INTERESTS -->
+      {{ with $person.interests }}
+        <div class="">
+          <div class="section-subheading mb-3">
+          <!-- {{ i18n "interests" | markdownify }} -->
+          Research
+          </div>
+          <!-- <ul class="list-disc list-inside space-y-1 pl-5"> -->
+          <ul>
+            {{ range . }}
+            <li>
+              {{ . | markdownify | emojify }}
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+
+      <!-- EDUCATION -->
+      {{ with $block.education }}
+        <div class="">
+          <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+          <ul class="">
+            {{ range . }}
+            <li class="flex items-start gap-3">
+              {{ if .logo }}
+                <img src="{{ $.Site.BaseURL }}img/{{ .logo }}" style="height:1.2rem; float: left; padding-right: 4px; padding-top:3px;">
+              {{ else }}
+                {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+              {{ end }}
+              <!-- <div class="description"> -->
+                {{ .course_short }}{{ with .institution_short }}, {{ . }}{{ end }}
+                {{ with .year }}({{ . }}){{ end }}
+                <br />
+              <!-- </div> -->
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+
+    </div> <!-- /interests & education column -->
+```
+
+Also, adding the service bit:
+
+```
+   <!-- SERVICE -->
+    {{ with $block.service }}
+      <div style="font-size: .8rem; padding-top: 2em;">
+        <b>Service</b>:
+        {{ range . }}
+        {{ .thing | markdownify }} &middot;
+        {{ end }}
+      </div>
+    {{ end }}
+```
+
+
 
 # Refining the home page
 
@@ -1172,6 +1137,49 @@ where the `id` is "section-`partial_name`" and the class automaticaly contains "
 
 
 
+## Teaching Page
+
+The teaching page is a useful template for icons and lists. Start by copying the `./layouts/paritals/flip_markdown.html` page and make a `./layouts/partials/flip_teaching.html`. 
+
+The structure of the `./content/_index.md` block is
+
+```
+  - block: flip_teaching
+    content: 
+      title: Teaching
+    class:
+      - name: Math Methods
+        number: P17
+        session: Spr 2023
+        photo: P017-2021.png
+        website: 'https://sites.google.com/ucr.edu/physics017/'
+      - name: Math Methods
+        number: P231
+        session: Fall 2022
+        photo: P231-2017.png
+        website: 'https://sites.google.com/ucr.edu/p231/'
+    oldclass:
+      - name: General Physics
+        number: P40B
+        session: Spr 2020
+        photo: P40B-2020.png
+        website: 'https://sites.google.com/ucr.edu/physics40b-s20/home'
+    olderclass:
+      - name: Math Methods
+        number: P231
+        session: Fall 2017
+        photo: P231-2017.png
+        website: 'https://github.com/Tanedo/P231-2017'
+```
+
+The `class` list is shown with icons. When that gets too long, I move it to the `oldclass` list which is just shown as text. Ancient courses are listed in `olderclass` which are not displayed at all. 
+
+### Structuring the template
+
+As a shortcut, we will not actually embrace responsive design.
+
+<mark>Okay. At this point, I got so frustrated trying to hack together tailwind commands from the default Hugo Blox framework. I'm just going to install tailwindcss.</mark>
+
 # Filling in other pages
 
 At this stage most of the template is set up. Now let's fill in the content.
@@ -1353,3 +1361,111 @@ Peeking at `./assets_templates/css/blox/biography.css` shows that `.resume-bigro
 ```
 
 Hmm. That did not seem to work. Also, it seems like the left side bar is not actually fixed length.
+
+## CV Widget: OLD
+
+<mark>These are old notes on how I hacked the new CV widget from the old one</mark>
+
+I'm using the revised `flip_markdown` block as a template to make a CV block. The edits will parallel the `flip.cv.html` block from the earlier 2024 Bootstrap version of my site.  Note that Hugo doesn't seem to like capital letters in file names, so we use `flip_cv.html` rather than `flip_CV.html`. The latter produces an error. 
+
+The CV widget is a little tricky because it's more an adaptation of the resume block than the markdown block. I am loathe to do "real" Tailwind edits in this iteration, so I'm further limited by the default Tailwind classes defined in the Hugo Blox template. This means I don't have access to the `max-width` classes: a callenge is to render the group logo at a smaller size on phones: when viewed in column view, the image wants to take up the whole width.
+
+
+
+![image-20240918110214992](./figures/image-20240918110214992.png)
+
+Annoying! Look how wide that is. The code for the above is:
+
+```html
+	{{ if $block.content.group_logo }}
+        <div class="h-auto max-w-xs">
+          <img src="{{ $block.content.group_logo }}">
+        </div>
+	{{ end }}
+```
+
+Instead, we can make the following hack:
+
+```html
+        <div class="flex flex-row">
+          <div class="w-64">.</div>
+          <div class="flex-auto">
+          <img src="{{ $block.content.group_logo }}">
+          </div>
+          <div class="w-64">.</div>
+        </div>
+```
+
+It's not elegant, but it uses the fact that `w-64` is defined without me having to re-run Tailwind. The result is that the logo is proportionally smaller on small screens because tehre are some fixed-width buffers on either side.
+
+That's a reasonable fix for small screens. Now we have to fix it so that it doesn't have these buffers on large screens. To do this, we use Tailwind's responsive design conditional:
+
+```html
+<div class="flex flex-row md:flex-col">
+          <div class="w-64 md:hidden"></div>
+          <div class="flex-auto">
+          <img src="{{ $block.content.group_logo }}">
+          </div>
+          <div class="w-64 md:hidden"></div>
+        </div>
+```
+
+So that for medium sized screens the buffer divs disappear. (In the latest version I've iterated this trick a bit. If you do a quick grep, it looks like we have access to `w-12` without having to recompile Tailwind if you want finer control.)
+
+Now we can also include the `svg` for a button (adapted from resume block):
+
+```html
+<br></br>
+        <p style="text-align: center;">
+        <a target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+        <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+        </svg> 
+        Download Full CV </a>
+        </p>
+```
+
+The path defines the curve of the button outline. It seems super cumbersome compared to Bootstrap. 
+
+Here's how it looks so far:
+
+![Screenshot 2024-09-18 at 11.14.40 AM](./figures/Screenshot 2024-09-18 at 11.14.40 AM.png)
+
+Now let's fill in that CV link. I based this on the implementation in `./layouts_templates/partial/blox/resume-biography.html` and the corresponding lines in the default `./content/_index.md`:
+
+```yaml
+      button:
+        text: Download CV
+        url: uploads/resume.pdf
+```
+
+So here's what we do: in `./content/_index.md` go to `-block: flip_cv` and modify the `cv_pdf` attribute:
+
+```yaml
+    cv_pdf:
+      url: /files/Tanedo.pdf
+      text: 'Full CV (pdf)'
+    # cv_pdf: ./files/Tanedo.pdf
+    # url: uploads/resume.pdf
+```
+
+The commented out lines are (1) the old version, and (2) the template. In `./layouts/partials/blox/flip_cv.html`:
+
+```html
+       <!-- FLIP: updated with $block.cv_pdf -->
+        <!-- FLIP: and {{.url}} and {{.text}} parts -->
+        <br>
+        <p style="text-align: center;">
+        {{ with $block.cv_pdf }}
+        <a href="{{.url}}" class=...>
+        ...
+        </svg> 
+        <!-- Download Full CV  -->
+        {{.text}}
+        </a>
+        {{ end }}
+        </p>
+        <!-- /FLIP -->
+```
+
+I've inserted ellipses (...) for parts that are unchanged.

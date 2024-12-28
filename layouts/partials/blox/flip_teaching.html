@@ -1,0 +1,46 @@
+{{/* Hugo Blox: Markdown */}}
+{{/* modified by Flip Tanedo */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+
+<div class="flex flex-col justify-center gap-8 justify-center px-6 md:flex-row">
+
+  <div class="text-3xl font-bold mb-2 mt-6 md:w-48 flip-section-md">
+      {{ $title }}
+  </div>
+
+<!-- CURRENT CLASSES -->
+<!--
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $block.class }}
+    <div class="flex flex-row">
+      {{ range . }}
+      <div class="flex-none">
+        <a href="{{ .website }}">
+          <img class="w-32" src="{{ $.Site.BaseURL }}img/teaching/{{ .photo }}">
+        </a>
+      </div>
+      <div class="flex-1">2</div> 
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+-->
+<!-- /CURRENT -->
+
+<!--   <div class="flex-auto max-w-prose md:mt-12">
+    {{ with $text }}
+    <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">
+    {{ . | markdownify }}
+    </div>
+    {{ end }}
+  </div> -->
+
+</div>

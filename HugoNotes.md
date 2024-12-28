@@ -22,7 +22,7 @@
 
 * What the dot means: https://discourse.gohugo.io/t/the-dot-and-the-dollar-in-context/48604
 
-## Tailwind
+# Tailwind
 
 In 2024 HugoBlox moved from Bootstrap to Tailwind. 
 
@@ -30,6 +30,112 @@ In 2024 HugoBlox moved from Bootstrap to Tailwind.
 * A Medium explainer for basic Tailwind: https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
 * https://refine.dev/blog/tailwind-grid/#span-rows
 * https://medium.com/@khazifire/how-to-add-tailwind-css-to-your-html-project-ef06fcd8dcc9
+
+## Installation
+
+I use [Homebrew](https://formulae.brew.sh/formula/tailwindcss). 
+
+```shell
+brew install tailwindcss
+```
+
+## Installing stuff... also not clear that we need this
+
+To use tailwind we need `node` , but installing `node` with Homebrew didn't work so I uninstalled it. Apparently it's easier to use Homebrew to install the package manager `nvm` 
+
+```
+You should create NVM's working directory if it doesn't exist:
+  mkdir ~/.nvm
+```
+
+I'll follow [https://formulae.brew.sh/formula/nvm](https://formulae.brew.sh/formula/nvm):
+
+```
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+```
+
+Then follow [this](https://eaglehead.medium.com/setting-up-node-js-on-macos-using-nvm-524b1554f240)
+
+```
+nvm ls-remote --lts
+```
+
+and then `nvm install 16.20.2` where you replace the number with the latest long term support version.
+
+
+
+Reload terminal: `source ~/.zshrc`
+
+## OLD WAY delete this
+
+I also need `npm` which you install with `node`
+
+```
+brew install node
+```
+
+From the [Hugo Blox instructions](https://themes.gohugo.io/themes/blox-tailwind/):
+
+```bash
+hugo mod npm pack
+npm install
+```
+
+**But**: `npm install` gives errors:
+
+```shell
+fliptanedo@Flips-MacBook-Pro ~ % npm install
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/fliptanedo/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/fliptanedo/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/fliptanedo/.npm/_logs/2024-12-28T18_29_32_165Z-debug-0.log
+```
+
+This error seems to be documented [here](https://stackoverflow.com/a/18020195). Not relevant.
+
+
+
+
+
+```yaml
+build:
+  writeStats: true
+```
+
+## Tailwind Install with Hugo Blox
+
+I don't think
+
+More from Hugo Blox:
+
+~~You need to add this to your `config.yaml` to enable Hugo’s Tailwind integration:~~
+
+Doesn't seem necessary. New version doesn't even have this file. Instead, there's something to run.
+
+## Recompile Tailwind
+
+Source: https://docs.hugoblox.com/reference/extend/
+
+If you wish to make changes to the built-in Tailwind styles, or use your own custom Tailwind-styled blocks, Tailwind will need to be recompiled for your site.
+
+Tailwind can be recompiled by running the following command from the root of your site:
+
+Terminal window
+
+```
+npm install -g pnpm && hugo && hugo mod vendor && cd ./_vendor/github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind/ && pnpm i && export HB_TW_CONTENT='../../../../../../hugo_stats.json' && npx tailwindcss -i ./assets/css/styles.css --config ./tailwind.config.js -o ../../../../../../assets/dist/wc.min.css --minify --postcss && cd ../../../../../../ && rm -rf _vendor
+```
+
+Note the use of `&&` to combine multiple commands as one. If you experience issues, you may wish to run each of these sub-commands one by one to debug the issue.
+
+Ah, this does it. 
 
 ### Tailwind Breakpoints
 
@@ -43,7 +149,30 @@ For example ([source](https://www.locofy.ai/blog/create-responsive-flex-layout-c
 
 This gives a default width of 16 (4rem) by default (small) that increases to 32 for medium screens and 48 for larger screens. 
 
+## An illustrative example
 
+This is verbatim from: https://tailwindcss.com/docs/responsive-design
+
+```html
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+  <div class="md:flex">
+    <div class="md:shrink-0">
+      <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/building.jpg" alt="Modern building architecture">
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Company retreats</div>
+      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Incredible accommodation for your team</a>
+      <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
+    </div>
+  </div>
+</div>
+```
+
+Here’s how the example above works:
+
+- By default, the outer `div` is `display: block`, but by adding the `md:flex` utility, it becomes `display: flex` on medium screens and larger.
+- When the parent is a flex container, we want to make sure the image never shrinks, so we’ve added `md:shrink-0` to prevent shrinking on medium screens and larger. Technically we could have just used `shrink-0` since it would do nothing on smaller screens, but since it only matters on `md` screens, it’s a good idea to make that clear in the class name.
+- On small screens the image is automatically full width by default. On medium screens and up, we’ve constrained the width to a fixed size and ensured the image is full height using `md:h-full md:w-48`.
 
 ## Blox edits
 

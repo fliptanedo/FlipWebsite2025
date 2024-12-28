@@ -1,5 +1,4 @@
 {{/* Hugo Blox: Markdown */}}
-{{/* modified by Flip Tanedo */}}
 {{/* Documentation: https://hugoblox.com/blocks/ */}}
 {{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
 
@@ -9,45 +8,40 @@
 {{ $title := $block.content.title | emojify | $page.RenderString }}
 {{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
 
+{{ $author := $block.content.username | default "admin" }}
 
-<!-- flip_markdown -->
-<!-- <div class="px-3 flex flex-col justify-center md:flex-row gap-12"> -->
-<!--  
-  WHAT THIS SAYS: 
-
-  px-3: tailwind for 0.75rem padding on L and R
-
-  what follows is a flexbox, this means subsequent sub-divisions should be arranged in a certain way.
-
-  no width specifier: for the smallest sizes...
-    flex-col: the flex box should be a column
-  but for larger sizes...
-    md:flex-row: display them as columns 
--->
-<!-- hugo markdown -->
-<!-- <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6"> -->
-<!-- HERE'S WHAT I'M USING -->
-<div class="flex flex-col justify-center  gap-3 justify-center px-6 md:flex-row">
-<!-- FLIP -->
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
 
 
-<!--   <div class="text-3xl font-bold mb-2 mt-6 md:w-48 flip-section-md">
-      {{ $title }}
-  </div>
- -->
 
-  <div class="md:w-48 flip-section-md">
-    <div class="text-3xl font-bold mb-2 mt-6">
-      {{ $title }}
-    </div>
+<div class="flex flex-col gap-8 justify-center w-full px-6 md:flex-row">
+
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white w-full md:w-48 justify-center">
+      <div>{{ $title }}</div>
+<!--       <div class="flex flex-col">
+          <div>{{ $title }}</div> 
+          <div>{{ $title }}</div> 
+      </div> -->
   </div>
 
-  <div class="flex-auto max-w-prose md:mt-12">
+
+  <div class="flex-auto max-w-prose">
+    <div class="prose max-w-prose prose-slate lg:prose-xl
+    dark:prose-invert">
     {{ with $text }}
-    <div class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">
-    {{ . }}
-    </div>
+    {{ . | markdownify }}
     {{ end }}
+    </div>
   </div>
+  
+
+
+
 
 </div>
