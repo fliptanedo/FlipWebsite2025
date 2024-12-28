@@ -53,10 +53,28 @@
     <!-- Any text -->
     <div class="prose max-w-prose prose-slate lg:prose-xl
     dark:prose-invert">
-    {{ with $text }}
-    {{ . | markdownify }}
-    {{ end }}
+      {{ with $text }}
+      {{ . | markdownify }}
+      {{ end }}
     </div>
+
+    <!-- Awards  -->
+    {{ with $block.awards }}
+    <div class="mt-6">
+      <div class="section-subheading mb-3">
+        Awards
+      </div>
+          <ul>
+            {{ range . }}
+              <li>
+                {{ if .link }}<a href="{{ .link }}">{{ end }}
+                {{ .thing | markdownify }}{{ if .link }}</a>{{ end }}, 
+                {{ .dates | markdownify }} 
+              </li>
+            {{ end }}
+          </ul>
+    </div>
+    {{ end }}
 
     <!-- For interests/education -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">

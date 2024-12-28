@@ -173,7 +173,7 @@ education:
 
 <!-- ## About Me -->
 
-## Flip Tanedo spends his time thinking about dark matter.
+## Flip Tanedo builds models of dark matter.
 
 
 

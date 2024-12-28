@@ -155,49 +155,6 @@ sections:
 
 
 
-  - block: flip_markdown
-    content:
-      title: 'Flip Markdown'
-      subtitle: ''
-      text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-        
-        Please reach out to collaborate 
-    design:
-      columns: '2'
-      # css_style: 'background-color: #F7F7F7;'
-
-  - block: flip_markdown_new
-    content:
-      title: 'Flip Mark_new'
-      subtitle: ''
-      text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-        
-        Please reach out to collaborate 
-    design:
-      columns: '2'
-      # css_style: 'background-color: #F7F7F7;'
-
-  - block: markdown
-    content:
-      title: '📚 My Research'
-      subtitle: ''
-      text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
-        
-        Please reach out to collaborate 😃
-    design:
-      columns: '1'
-
-
-
   - block: flip_teaching
     content: 
       title: Teaching
@@ -337,6 +294,49 @@ sections:
         photo: P121-2006.png
         website: 'https://github.com/Tanedo/P121-2006'
 
+
+
+
+  - block: flip_markdown
+    content:
+      title: 'Flip Markdown'
+      subtitle: ''
+      text: |-
+        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        
+        Please reach out to collaborate 
+    design:
+      columns: '2'
+      # css_style: 'background-color: #F7F7F7;'
+
+  - block: flip_markdown_new
+    content:
+      title: 'Flip Mark_new'
+      subtitle: ''
+      text: |-
+        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        
+        Please reach out to collaborate 
+    design:
+      columns: '2'
+      # css_style: 'background-color: #F7F7F7;'
+
+  - block: markdown
+    content:
+      title: '📚 My Research'
+      subtitle: ''
+      text: |-
+        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+
+        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+        
+        Please reach out to collaborate 😃
+    design:
+      columns: '1'
 
 
 
