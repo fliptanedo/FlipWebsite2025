@@ -1182,6 +1182,10 @@ As a shortcut, we will not actually embrace responsive design.
 
 <mark>Okay. At this point, I got so frustrated trying to hack together tailwind commands from the default Hugo Blox framework. I'm just going to install tailwindcss.</mark>
 
+*Okay, once I let myself use Tailwind to put things together this was pretty straightforward* 
+
+I changed my responsive design to a 4-column grid for large screens and a 2-column grid for small screens. The 2-column grid lists the text to the right of the icon, not below. This fills out the space nicely. (And I stumbled upon this accidentally.)
+
 # Filling in other pages
 
 At this stage most of the template is set up. Now let's fill in the content.

@@ -168,21 +168,23 @@ sections:
       title: Teaching
       text: |-
         Test text in the teaching block
+
+        Next time: just most recent version of each class on top, then older versions as links on the bottom. That way each icon gets to shine
     class:
-      - name: Math Methods
+      - name: Linear Algebra
         number: P17
         session: Spr 2023
-        photo: P017-2021.png
+        photo: P017-2024.png
         website: 'https://sites.google.com/ucr.edu/physics017/'
       - name: Math Methods
         number: P231
         session: Fall 2022
-        photo: P231-2017.png
+        photo: P231-2024.png
         website: 'https://sites.google.com/ucr.edu/p231/'
-      - name: Math Methods
+      - name: Linear Algebra
         number: P17
         session: Spr 2022
-        photo: P017-2021.png
+        photo: P017-2024.png
         website: 'https://sites.google.com/ucr.edu/physics017/'
       - name: Particle Physics
         number: P165
@@ -197,7 +199,7 @@ sections:
       - name: Math Methods
         number: P231
         session: Fall 2021
-        photo: P231-2017.png
+        photo: P231-2024.png
         website: 'https://sites.google.com/ucr.edu/p231/'
       - name: General Physics
         number: P40B
@@ -207,7 +209,7 @@ sections:
       - name: Math Methods
         number: P231
         session: Fall 2020
-        photo: P231-2017.png
+        photo: P231-2024.png
         website: 'https://sites.google.com/ucr.edu/p231/'
     oldclass:
       - name: General Physics
@@ -233,7 +235,7 @@ sections:
       - name: Math Methods
         number: P231
         session: Fall 2019
-        photo: P231-2017.png
+        photo: P231-2024.png
         website: 'https://sites.google.com/ucr.edu/p231/'
       - name: Group Theory
         number: P262
@@ -243,7 +245,7 @@ sections:
       - name: Math Methods
         number: P231
         session: Fall 2018
-        photo: P231-2017.png
+        photo: P231-2024.png
         website: 'https://tanedo.github.io/Physics231-2018/'
       - name: Computational Physics
         number: P177
