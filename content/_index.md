@@ -73,27 +73,35 @@ sections:
       - thing: NSF CAREER Award
         link: https://beta.nsf.gov/funding/opportunities/faculty-early-career-development-program-career
         dates: 2021 - 2026
+        logo: /logo/award_NSF.png
       - thing: UCR Junior Excellence in Teaching Award
         link: https://academyteachers.ucr.edu/awards/jet
         dates: 2021
+        logo: /logo/award_UCR.png
       - thing: Hellman Fellow
         link: http://www.hellmanfellows.org
         dates: 2020 - 2021
+        logo: /logo/award_Hellman.png
       - thing: UCR Commitment to Graduate Diversity Award
         link: https://insideucr.ucr.edu/awards/2020/06/24/four-professors-honored-senate-faculty-awards
         dates: 2020
+        logo: /logo/award_UCR.png
       - thing: UCI Chancellor's Advance Postdoctoral Fellow
         link: https://inclusion.uci.edu/funding-programs/postdoctoral-fellowship-programs/#capfp
         dates: 2014 - 2015  
+        logo: /logo/award_UCI.png
       - thing: Paul & Daisy Soros Fellowship
         link: https://www.pdsoros.org
         dates: 2010 - 2012  
+        logo: /logo/award_Soros.png
       - thing: NSF Graduate Research Fellow
         link: https://www.nsfgrfp.org
         dates: 2006 - 2011  
+        logo: /logo/award_NSF.png
       - thing: Marshall Scholarship
         link: https://www.marshallscholarship.org
         dates: 2006 - 2008
+        logo: /logo/award_Marshall.png
     interests:
       - interest: Dark Matter
       - interest: Quantum field theory

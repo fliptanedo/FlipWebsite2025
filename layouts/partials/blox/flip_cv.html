@@ -67,6 +67,11 @@
           <ul>
             {{ range . }}
               <li>
+                {{ if .logo }}
+                  <img src="{{ $.Site.BaseURL }}img/{{ .logo }}" style="height:1.2rem; float: left; padding-right: 15px; padding-top:3px;">
+                {{ else }}
+                  <img src="{{ $.Site.BaseURL }}img/logo/award_empty.png" style="height:1.2rem; float: left; padding-right: 15px; padding-top:3px;">
+                {{ end }}
                 {{ if .link }}<a href="{{ .link }}">{{ end }}
                 {{ .thing | markdownify }}{{ if .link }}</a>{{ end }}, 
                 {{ .dates | markdownify }} 
