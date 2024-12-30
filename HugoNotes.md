@@ -50,6 +50,8 @@ You should create NVM's working directory if it doesn't exist:
 
 I'll follow [https://formulae.brew.sh/formula/nvm](https://formulae.brew.sh/formula/nvm):
 
+You have to *add* this to `~./zshrc`
+
 ```
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm

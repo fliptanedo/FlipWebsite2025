@@ -40,10 +40,12 @@
 
     <!-- CURRENT COURSES -->
     {{ with $block }}
- 
+      <div class="section-subheading mb-3 mt-6 md:invisible">
+        Current Classes
+      </div>
 
 
-<!--       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       {{ range .class }}
         <div>  
           <a href="{{ .website }}">
@@ -55,23 +57,21 @@
           <span class="smaller">{{ .name }}</span>
         </div>
       {{ end }}
-      </div> -->
+      </div>
 
-      <div class="grid grid-cols-2 greenlink md:grid-cols-4 gap-4"> 
+      <div class="grid grid-cols-1 pl-48 md:grid-cols-4 gap-4 pl-0"> 
       {{ range .class }} 
-        <div class="flex flex-row md:flex-col pt-4">   
-          <div class="flex flex-none w-24 md:w-11/12">
+        <div class="flex flex-row md:flex-col">   
+          <div class="flex flex-none w-24 md:w-full">
             <a href="{{ .website }}">
             <img class="size-24 md:size-auto" src="{{ $.Site.BaseURL }}img/teaching/{{ .photo }}"> 
           </a>
           </div> 
           <!--  -->
           <div class="flex flex-auto flex-col pl-2.5 md:pl-0">
-            <div class="pt-2"><a href="{{ .website }}">{{ .name }}</a></div>
-            <div class="flex flex-col pt-0 md:flex-row">
-              <div>{{ .number }}, &nbsp;</div> 
-              <div>{{ .session }} </div>
-            </div>
+            <div>{{ .number }}</div> 
+            <div class="visible md:invible">{{ .name }}</div> 
+            <div>{{ .session }} </div>
           </div>
         </div>
       {{ end }}

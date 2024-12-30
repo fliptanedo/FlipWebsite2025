@@ -167,7 +167,7 @@ sections:
     content: 
       title: Teaching
       text: |-
-        Test
+        Test text in the teaching block
     class:
       - name: Math Methods
         number: P17

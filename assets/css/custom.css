@@ -15,10 +15,10 @@ body {
 }
 
 
-/* mainly affects biography  */
-/*a {
+.greenlink a {
   color: #4CAF50;
-}*/
+}
+
 
 /* for main text of markdown block */
 .prose a {
@@ -43,16 +43,7 @@ body {
   line-height: 130%;
 }
 
-/* HACKS */
-.size32{
-  width: 32px;
-  height: 32px;
-}
 
-.size64{
-  width: 64;
-  height: 64px;
-}
 
 /*
   ////////////////////

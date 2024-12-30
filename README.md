@@ -76,6 +76,8 @@ This doesn't break anything. It looks like I'm calling Hugo 0.126.
 From `hugoblox.yaml`: `hugo_version: '0.126.3'`
 From `go.mod`: `blox-tailwind v0.2.1-0.20240602133901-492e343c2a33`
 
+Image sources are in my **graphics folder**, which I do not upload to Github.
+
 ## Quick comparison
 
 Here's what the 2023 version looked like: (the 2024 page looks the same)
