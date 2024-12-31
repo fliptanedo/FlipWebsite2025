@@ -41,14 +41,14 @@
     <!-- CURRENT COURSES -->
     {{ with $block }}
 
-      <div class="grid greenlink sm:grid-cols-2  md:grid-cols-4 gap-4"> 
+      <div class="grid greenlink grid-cols-2  md:grid-cols-4 gap-4"> 
       {{ range .class }} 
         <!-- FOR EACH CLASS -->
         <div class="flex flex-row md:flex-col pt-4">   
           <!-- ICON -->
-          <div class="flex sm:flex-none w-24 md:w-11/12">
+          <div class="flex flex-none w-24 md:w-11/12">
             <a href="{{ .website }}">
-            <img class="sm:size-24 md:size-auto" src="{{ $.Site.BaseURL }}img/teaching/{{ .photo }}"> 
+            <img class="size-24 md:size-auto" src="{{ $.Site.BaseURL }}img/teaching/{{ .photo }}"> 
             </a>
           </div> 
           <!-- DESCRIPTION -->
@@ -58,7 +58,7 @@
               <a href="{{ .website }}">{{ .name }}</a>
             </div>
             <!-- Course + Term -->
-            <div class="flex flex-row sm:flex-col pt-0 md:flex-row">
+            <div class="flex flex-col pt-0 md:flex-row">
               <div>{{ .number }}, &nbsp;</div> 
               <div>{{ .session }} </div>
             </div> <!-- end course + term -->
