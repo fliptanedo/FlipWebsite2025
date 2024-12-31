@@ -167,7 +167,7 @@ sections:
     content: 
       title: Teaching
       text: |-
-        Test text in the teaching block
+        Test text in the teaching block 12/30
 
         Next time: just most recent version of each class on top, then older versions as links on the bottom. That way each icon gets to shine
     class:
