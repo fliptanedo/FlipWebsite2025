@@ -70,11 +70,11 @@ sections:
     # cv_pdf: ./files/Tanedo.pdf
     # url: uploads/resume.pdf
     awards:
-      - thing: NSF CAREER Award
+      - thing: CAREER Award
         link: https://beta.nsf.gov/funding/opportunities/faculty-early-career-development-program-career
         dates: 2021 - 2026
         logo: /logo/award_NSF.png
-      - thing: UCR Junior Excellence in Teaching Award
+      - thing: Junior Excellence in Teaching Award
         link: https://academyteachers.ucr.edu/awards/jet
         dates: 2021
         logo: /logo/award_UCR.png
@@ -82,11 +82,11 @@ sections:
         link: http://www.hellmanfellows.org
         dates: 2020 - 2021
         logo: /logo/award_Hellman.png
-      - thing: UCR Commitment to Graduate Diversity Award
+      - thing: Commitment to Graduate Diversity Award
         link: https://insideucr.ucr.edu/awards/2020/06/24/four-professors-honored-senate-faculty-awards
         dates: 2020
         logo: /logo/award_UCR.png
-      - thing: UCI Chancellor's Advance Postdoctoral Fellow
+      - thing: Chancellor's Advance Postdoctoral Fellow
         link: https://inclusion.uci.edu/funding-programs/postdoctoral-fellowship-programs/#capfp
         dates: 2014 - 2015  
         logo: /logo/award_UCI.png
@@ -94,7 +94,7 @@ sections:
         link: https://www.pdsoros.org
         dates: 2010 - 2012  
         logo: /logo/award_Soros.png
-      - thing: NSF Graduate Research Fellow
+      - thing: Graduate Research Fellow
         link: https://www.nsfgrfp.org
         dates: 2006 - 2011  
         logo: /logo/award_NSF.png
