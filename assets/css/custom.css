@@ -187,3 +187,78 @@ body{
 }
 
 
+
+/* STUDENT photos on index.html */
+.studentpic{
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* SWIPER / CAROUSEL  */
+.swiper-container {
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  position: relative;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure images scale nicely */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; 
+  /* Adjust as needed */
+/*  color: #4CAF50;*/
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center */
+  z-index: 10;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #4CAF50;
+}
+
+.swiper-pagination {
+  bottom: 10px; /* Adjust vertical position */
+  text-align: center;
+}
+
+.swiper-pagination-bullet {
+  background-color: white; /* Adjust color */
+  opacity: 0.9;
+}
+
+.swiper-pagination-bullet-active {
+/*  background-color: #007BFF; */
+  background-color: #4CAF50;
+  /* Highlight active bullet */
+  opacity: 1;
+}
+
+/* Style the overlay text */
+.slide-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the text exactly */
+  color: white; /* Text color */
+  text-align: center; /* Align text */
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: Semi-transparent background */
+  padding: 20px; /* Add padding around text */
+  border-radius: 10px; /* Optional: Rounded corners */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .slide-text {
+    font-size: 0.9rem; /* Smaller text size */
+    padding: 10px; /* Less padding */
+  }
+}

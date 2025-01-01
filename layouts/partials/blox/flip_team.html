@@ -1,0 +1,106 @@
+{{/* Hugo Blox: Team (Flip Version) */}}
+{{/* Based on Flip's Teaching Module */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
+
+
+
+<div class="flex flex-col gap-8 justify-center w-full px-6 md:flex-row">
+
+  <!-- LEFT COLUMN/TITLE -->
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white w-full md:w-48 justify-center">
+      <div>{{ $title }}</div>
+  </div>
+
+  <!-- RIGHT COLUMN/BODY -->
+  <div class="flex-auto max-w-prose">
+
+    <!-- TEXT -->
+    <div class="prose max-w-prose prose-slate lg:prose-xl
+    dark:prose-invert">
+    {{ with $text }}
+    {{ . | markdownify }}
+    {{ end }}
+    </div> 
+    <!-- /TEXT -->
+
+    <!-- CURRENT STUDENTS -->
+    {{ with $block.mygroup }}
+
+      <div class="grid greenlink sm:grid-cols-2  md:grid-cols-4 gap-4"> 
+      {{ range .students }} 
+        <!-- FOR EACH CLASS -->
+        <div class="flex flex-row md:flex-col pt-4">   
+          <!-- Photo -->
+          <div class="flex sm:flex-none w-24 md:w-11/12">
+            <a href="{{ .website }}">
+              <img class="studentpic" src="{{ $.Site.BaseURL }}img/students/{{ .photo }}">
+            </a>
+          </div> 
+          <!-- DESCRIPTION -->
+          <div class="flex flex-auto flex-col pl-2.5 md:pl-0">
+            <!-- NAME -->
+            <div class="pt-2 text-xl md:text-base"> 
+              <a href="{{ .website }}">{{ .name }}</a>
+            </div>
+            <!-- Course + Term -->
+            <div class="flex flex-row sm:flex-col pt-0 md:flex-row">
+              <div>{{ .position }}&nbsp;</div> 
+              <div>{{ .start }} </div>
+            </div> <!-- end course + term -->
+          </div> <!-- end description -->
+        </div> <!-- end CLASS -->
+      {{ end }} <!-- end CLASS (range) -->
+      </div> <!-- end GRID -->
+
+    {{ end }} <!-- end "with $block" -->
+
+
+    <!-- Start another with $block -->
+    <!-- kind of silly, clean up code later -->
+    {{ with $block.mygroup }}
+
+      <div class="section-subheading mb-3 mt-6">
+        Former Students
+      </div>
+
+      <div class="comment">
+
+        {{ range .oldstudents }}
+            <div class="">
+              <a href="{{ .website }}" class=comment>
+                {{ .name }}
+              </a>&nbsp;
+              {{ .start }} - {{ .end }}&nbsp;
+              {{ .position }}, {{ .role }}
+            </div>
+        {{ end }}
+
+      </div>
+    {{ end }}
+
+
+
+
+
+    <!--  -->
+
+  </div> <!-- /RIGHT COLUMN -->
+
+</div>

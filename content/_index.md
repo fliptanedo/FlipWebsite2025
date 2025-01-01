@@ -164,12 +164,15 @@ sections:
 
 
   - block: flip_teaching
+  # - block: markdown
     content: 
       title: Teaching
       text: |-
         Test text in the teaching block 12/30
 
         Next time: just most recent version of each class on top, then older versions as links on the bottom. That way each icon gets to shine
+
+        How to request a letter of rec.
     class:
       - name: Linear Algebra
         number: P17
@@ -321,6 +324,128 @@ sections:
       columns: '2'
       # css_style: 'background-color: #F7F7F7;'
 
+  - block: flip_team 
+  # - block: markdown
+    content:
+      title: Team
+      subtitle: Tanedo Group
+      text: |-
+        I am part of the [UCR particle theory](https://theory.ucr.edu) group. I also work with some of the theory faculty in the [UCR astro group](https://astro.ucr.edu).
+
+        {{% callout note %}}
+        I am not currently taking new Ph.D students. <small>Prospective UCR students should reach out to discuss expectations of studentship.</small>
+        {{% /callout %}}
+
+        UCR undergraduates seeking mentoring in particle physics (e.g. through [NMC](https://www.aps.org/programs/minorities/nmc/) or [CL](https://www.cientificolatino.com)) may [contact me](#contact). I welcome invitations for potential postdocs eligible for the [UC PPFP](https://ppfp.ucop.edu/info/) fellowship, NSF MPS ASCEND fellowship, or a [UC-MEXUS](https://alianzamx.universityofcalifornia.edu/research-and-innovation/uc-mexus-conacyt-doctoral-fellow-program/) fellowship.
+    mygroup:
+      students:
+        - name: Samir Kulkarni
+          start: '2024'
+          position: Undergrad
+          photo: template_samir.jpg
+        - name: Matt Lugatiman
+          start: '2022'
+          position: Undergrad
+          photo: template_matt.jpg
+          website: 'https://www.linkedin.com/in/matthew-lugatiman-883820233/'
+        - name: Yash Aggarwal
+          start: '2019'
+          position: Grad
+          photo: template_yash.jpg
+          website: 'https://orcid.org/0000-0002-3862-0622%20'
+        - name: Adam Green
+          position: Grad
+          start: '2018'
+          photo: template_agreen-2.jpg
+          website: 'https://github.com/agree019'
+      oldstudents:
+        - name: Kuntal Pal
+          position: Grad
+          start: '2018'
+          end: '2024'
+          photo: template_kuntal.jpg
+          website: 'https://www.linkedin.com/in/kuntal-pal/'
+        - name: Lexi Costantino
+          start: '2018'
+          end: '2023'
+          position: Grad
+          photo: template_lexi.jpg
+          website: 'https://www.cocc.edu/directory/departments/physics.aspx'
+        - name: Nathan Kang
+          start: '2022'
+          end: '2023'
+          position: HS
+          photo: template_nathan.jpg
+        - name: Rob Clemenson
+          start: '2022'
+          end: '2023'
+          position: Grad
+          photo: template_rob.jpg
+          website: 'https://cosmicconundra.com/'
+        - name: Ian Chaffey
+          start: '2017'
+          end: '2022'
+          position: Grad
+          photo: template_ian.jpg
+          website: 'https://www.linkedin.com/in/ian-chaffey/'
+        - name: Aniket Joglekar
+          position: Postdoc
+          start: '2017'
+          end: '2020'
+          photo: template_aniket.jpg
+          website: 'https://iittp.ac.in/dr-aniket-joglekar'
+        - name: Cecelia Ngo
+          start: '2021'
+          end: '2022'
+          position: UG
+          photo: portrait.jpg
+        - name: Sagada Penano
+          position: Undergrad (Stanford)
+          start: '2020'
+          end: '2021'
+          photo: template_sagada.jpg
+          website: 'https://profiles.stanford.edu/sagada-penano'
+        - name: Anagha Satish ‡§
+          position: HS
+          start: '2020'
+          end: '2021'
+          photo: template_anagha.jpg
+          website: ''
+        - name: Sergio Garcia
+          start: '2018'
+          end: '19'
+          position: NMC Mentee
+          photo: template_sergio.jpg
+          website: 
+        - name: Corey Kownacki
+          position: Grad
+          start: '2017'
+          end: '18'
+          photo: template_corey.jpg
+          website: 'https://www.linkedin.com/in/corey-kownacki/'
+        - name: Syris Norelli
+          start: '2017'
+          end: '18'
+          position: UG
+          role: Chancellor's Research Fellow
+          photo: template_syris.jpg
+          website: 
+        - name: Adam Green
+          position: UG
+          start: '2016'
+          end: '18'
+          role: Honors thesis
+          photo: template_agreen-2.jpg
+          website: 'https://github.com/agree019'
+        - name: Kamran Vaziri
+          start: '2016'
+          end: '17'
+          position: MS
+          role: Masters Student
+          photo: template_kamran.jpg
+          website: 'http://theory.ucr.edu/group.html'
+
+
   - block: flip_markdown_new
     content:
       title: 'Flip Mark_new'
@@ -335,6 +460,118 @@ sections:
       columns: '2'
       # css_style: 'background-color: #F7F7F7;'
 
+
+
+  - block: flip-slider
+  # someting weird with horizontal scroll
+  # - block: markdown
+    content:
+      title: 'My Research Slider'
+      subtitle: ''
+      text: 'Test'
+      slides:
+      - title: 
+        content: Find my papers on InspireHEP
+        align: center
+        background:
+          position: right
+          # color: '#666'
+          brightness: 0.7 
+          media: research/carousel_chalkboard.jpg
+        link:
+          icon: atom
+          icon_pack: fas
+          text: Join Us
+          url: https://inspirehep.net/authors/1049892
+      - title: ML
+        content: Machine Learning High-Dimensional Theory Spaces
+        align: left
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_ml.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2103.06957
+          url: https://arxiv.org/abs/2103.06957
+        credit: '[@fabioha via Unsplash](https://unsplash.com/photos/oyXis2kALVg)'
+      - title: Dark Z
+        content: at linear colliders
+        align: right
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_ILC.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2205.10304
+          url: https://arxiv.org/abs/2205.10304
+        credit: '[@Umberto via Unsplash](https://unsplash.com/photos/  FewHpO4VC9Y)'
+      - title: Conformal DM
+        content: Continuum Mediated Self-Interactions
+        align: left
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_sidm.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2102.05674
+          url: https://arxiv.org/abs/2102.05674
+        credit: '[Adrien Olichon via Pexels](https://www.pexels.com/photo/black-sand-dunes-2387793/)'
+      - title: AdS
+        content: Continuum Soft Bombs
+        align: left
+        background:
+          position: left
+          brightness: 0.7
+          media: research/carousel_softbomb.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2002.12335
+          url: https://arxiv.org/abs/2002.12335
+        credit: '[Jessica Lewis via Pexels](https://www.pexels.com/photo/  close-up-photo-of-dandelion-1118427/)'
+      - title: DM Capture
+        content: on relativistic targets
+        align: right
+        background:
+          position: left
+          brightness: 0.7
+          media: research/carousel_neutronstar.png  # path relative to   `assets/
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2004.09539
+          url: https://arxiv.org/abs/2004.09539
+        credit: '[FNS via Pexels](https://www.pexels.com/photo/  stars-during-nighttime-127577/)'
+      - title: Symmetry Breaking
+        content: vector self-interacting dark matter
+        align: left
+        background:
+          position: left
+          brightness: 0.7
+          media: research/carousel_fiberbundle.jpg  # path relative to   `assets/
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 1907.10217
+          url: https://arxiv.org/abs/1907.10217
+        credit: '[@anyctophile via Unsplash ("fiber bundle"   😄)](https://unsplash.com/photos/8uTqI_KpC_Q)'
+    design:
+      columns: '1'
+      css_style: 'background-color: #F7F7F7;'
+        
+
+
+
+
   - block: markdown
     content:
       title: '📚 My Research'
@@ -347,7 +584,7 @@ sections:
         Please reach out to collaborate 😃
     design:
       columns: '1'
-
+      # css_style: 'background-color: #F7F7F7;'
 
 
 
