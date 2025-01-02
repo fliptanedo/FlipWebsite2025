@@ -619,6 +619,8 @@ Let's use [Raleway](https://fonts.google.com/specimen/Raleway), a variable width
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 ```
 
+n.b. you can also use the `@import` method.
+
 And for CSS:
 
 ```css

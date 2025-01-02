@@ -26,6 +26,14 @@ body {
   text-decoration: none;
 }
 
+
+.monospace {
+  font-family: "Sometype Mono", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
 .flip-section-title{
   padding: 3rem 10px 0px 0px;
 }

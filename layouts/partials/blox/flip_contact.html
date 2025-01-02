@@ -1,0 +1,113 @@
+{{/* Hugo Blox: Contact (Flip Version) */}}
+{{/* based on Flip Markdown */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
+
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
+
+{{ $data := $block.content }}
+
+
+<div class="flex flex-col gap-8 justify-center w-full px-6 md:flex-row">
+
+  <!-- LEFT COLUMN/TITLE -->
+  <div class="flex text-3xl font-bold mb-2 text-gray-900
+  dark:text-white w-full md:w-48 justify-center">
+      <div>{{ $title }}</div>
+  </div>
+
+  <!-- RIGHT COLUMN/BODY -->
+  <div class="flex-auto max-w-prose">
+    <div class="prose max-w-prose prose-slate lg:prose-xl
+    dark:prose-invert">
+    {{ with $text }}
+    {{ . | markdownify }}
+    {{ end }}
+
+      <ul class="fa-ul">
+      {{ with $data.email1 }}
+
+        <li>
+          <i class="fa-li fas fa-envelope fa-sm" aria-hidden="true" ></i>
+          <span class="monospace" id="person-email" itemprop="email">
+            <a 
+              data-name="{{ $data.email1 }}" 
+              data-domain="{{ $data.email2 }}" 
+              data-tld="{{ $data.email3 }}" 
+              href="#" 
+              class="cryptedmail" 
+              onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld"></a>
+          </span>
+        </li>
+
+        {{ with $data.phone }}
+        <li>
+          <i class="fa-li fas fa-phone fa-sm" aria-hidden="true"></i>
+          {{ . }}
+          (UCR)
+        </li>
+        {{ end }}
+
+        {{ $addr_formatted := "" }}
+        {{ if $data.address.street | or $data.address.city | or $data.address.region | or $data.address.postcode | or $data.address.country }}
+          {{ $addr_formatted = partial "functions/get_address" (dict "root" . "address" $data.address) }}
+          <li>
+            <i class="fa-li fas fa-map-marker fa-sm" aria-hidden="true"></i>
+            <span id="person-address">{{$addr_formatted}}</span>
+          </li>
+        {{ end }}
+
+        {{ with $data.directions }}
+        <li>
+          <i class="fa-li fas fa-compass fa-sm" aria-hidden="true"></i>
+          <span>{{ . | markdownify | emojify }}</span>
+        </li>
+        {{ end }}
+
+        {{ with $data.office_hours }}
+        <li>
+          <i class="fa-li fas fa-clock fa-sm" aria-hidden="true"></i>
+          <span>
+            {{- if not (reflect.IsSlice .)}}{{/* Support legacy string format. */}}
+              {{- . | markdownify | emojify -}}
+            {{else}}
+              {{- delimit . "<br>" | markdownify | emojify -}}
+            {{end -}}
+          </span>
+        </li>
+        {{ end }}
+
+
+        {{ with $data.appointment_blurb }}
+        <li>
+          <i class="fa-li fas fa-calendar-check fa-sm" aria-hidden="true"></i>
+          {{ $data.appointment_blurb | markdownify }} 
+          {{ with $data.appointment_blurb2 }}
+          <br />
+          <div class="comment">
+          {{ $data.appointment_blurb2 | markdownify}}
+          </div>
+          {{ end }}
+        </li>
+        {{ end }}
+
+
+      {{ end }}
+      </ul>
+
+    </div> <!-- /prose -->
+  </div> <!-- /right column -->
+  
+</div>
