@@ -177,5 +177,4 @@ education:
 
 
 
-Flip Tanedo is an associate professor of theoretical physics at the University of California, Riverside. His research seeks to discover how dark matter fits into our fundamental understanding of nature.
-
+He grew up in Los Angeles and fell in love with physics after reading The Physics of Star Trek. This carried into degrees in mathematics and physics at Stanford, Cambridge, Durham, and a Ph.D at Cornell. After a postdoc at UC Irvine, he is currently faculty at UC Riverside where he is often covered in a layer of chalk dust.

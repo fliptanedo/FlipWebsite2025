@@ -1216,6 +1216,16 @@ The `<hook>` directories are **head-start**, head-end, **body-end**, footer-star
 
 At this stage most of the template is set up. Now let's fill in the content.
 
+## Content Subfolders
+
+You can create your own subfolders. This is how the `./layouts_templates/partials/blox/collection.html` block works. It goes through a named subfolder pulls out the content.
+
+### One offs
+
+Create a directory `./content/info/`.
+
+This is where I put my biography.
+
 ## 404 Page
 
 <mark>to do</mark>

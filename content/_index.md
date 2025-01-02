@@ -12,21 +12,18 @@ sections:
 
   - block: resume-biography-flip
     content:
-      # Choose a user profile to display (a folder name within `content/authors/`)
+      # User profile to display (folder name in `content/authors/`)
       username: admin
-      text: ""
-      # Show a call-to-action button under your biography? (optional)
-      # button:
-      #   text: Download CV
-      #   url: uploads/resume.pdf
-      # Have a few buttons 
       buttons:
         - text: Download CV
           fontawesome: fa-download
           url: uploads/resume.pdf
         - text: Professional Biosketch
           fontawesome: fa-user
-          url: uploads/resume.pdf
+          url: ./info/bio/
+        - text: UCR
+          fontawesome: fa-address-card
+          url: 'https://profiles.ucr.edu/app/home/profile/flipt'
       blurb: |-
         Flip is the first Filipino-American professor of particle physics. He runs a [Physical Science book club (Phy-Sci)](https://sites.google.com/ucr.edu/physci-book-club/) at his local independent book store. He enjoys swimming, basketball, and speculative fiction.
     design:
@@ -47,18 +44,14 @@ sections:
 
 
   - block: flip_cv
+  # THE ID must be all lowercase
+    id: cv
     content:
       title: 'Curriculum Vitae'
       subtitle: ''
       group_logo: ./img/logo/UCRHEP_2022.png
       text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-        
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots. 
+        Flip Tanedo is an associate professor of theoretical physics at the University of California, Riverside. His research seeks to discover how dark matter fits into our fundamental understanding of nature.
     design:
       columns: '2'
       css_style: 'background-color: #F7F7F7;'
@@ -148,6 +141,7 @@ sections:
 
 
   - block: flip_markdown
+    id: research
     content:
       title: 'Research'
       subtitle: ''
@@ -162,17 +156,248 @@ sections:
       # css_style: 'background-color: #F7F7F7;'
 
 
+  - block: flip_team 
+    id: team
+    content:
+      title: Team
+      subtitle: Tanedo Group
+      text: |-
+        I am part of the [UCR particle theory](https://theory.ucr.edu) group. I also work with some of the theory faculty in the [UCR astro group](https://astro.ucr.edu).
+
+        {{% callout note %}}
+        I am not currently taking new Ph.D students. <small>Prospective UCR students should reach out to discuss expectations of studentship.</small>
+        {{% /callout %}}
+
+        UCR undergraduates seeking mentoring in particle physics (e.g. through [NMC](https://www.aps.org/programs/minorities/nmc/) or [CL](https://www.cientificolatino.com)) may [contact me](#contact). I welcome invitations for potential postdocs eligible for the [UC PPFP](https://ppfp.ucop.edu/info/) fellowship, NSF MPS ASCEND fellowship, or a [UC-MEXUS](https://alianzamx.universityofcalifornia.edu/research-and-innovation/uc-mexus-conacyt-doctoral-fellow-program/) fellowship.
+    mygroup:
+      students:
+        - name: Samir Kulkarni
+          start: '2024'
+          position: Undergrad
+          photo: template_samir.jpg
+        - name: Matt Lugatiman
+          start: '2022'
+          position: Undergrad
+          photo: template_matt.jpg
+          website: 'https://www.linkedin.com/in/matthew-lugatiman-883820233/'
+        - name: Yash Aggarwal
+          start: '2019'
+          position: Grad
+          photo: template_yash.jpg
+          website: 'https://orcid.org/0000-0002-3862-0622%20'
+        - name: Adam Green
+          position: Grad
+          start: '2018'
+          photo: template_agreen-2.jpg
+          website: 'https://github.com/agree019'
+      oldstudents:
+        - name: Kuntal Pal
+          position: Grad
+          start: '2018'
+          end: '2024'
+          photo: template_kuntal.jpg
+          website: 'https://www.linkedin.com/in/kuntal-pal/'
+        - name: Lexi Costantino
+          start: '2018'
+          end: '2023'
+          position: Grad
+          photo: template_lexi.jpg
+          website: 'https://www.cocc.edu/directory/departments/physics.aspx'
+        - name: Nathan Kang
+          start: '2022'
+          end: '2023'
+          position: HS
+          photo: template_nathan.jpg
+        - name: Rob Clemenson
+          start: '2022'
+          end: '2023'
+          position: Grad
+          photo: template_rob.jpg
+          website: 'https://cosmicconundra.com/'
+        - name: Ian Chaffey
+          start: '2017'
+          end: '2022'
+          position: Grad
+          photo: template_ian.jpg
+          website: 'https://www.linkedin.com/in/ian-chaffey/'
+        - name: Aniket Joglekar
+          position: Postdoc
+          start: '2017'
+          end: '2020'
+          photo: template_aniket.jpg
+          website: 'https://iittp.ac.in/dr-aniket-joglekar'
+        - name: Cecelia Ngo
+          start: '2021'
+          end: '2022'
+          position: UG
+          photo: portrait.jpg
+        - name: Sagada Penano
+          position: Undergrad (Stanford)
+          start: '2020'
+          end: '2021'
+          photo: template_sagada.jpg
+          website: 'https://profiles.stanford.edu/sagada-penano'
+        - name: Anagha Satish ‡§
+          position: HS
+          start: '2020'
+          end: '2021'
+          photo: template_anagha.jpg
+          website: ''
+        - name: Sergio Garcia
+          start: '2018'
+          end: '19'
+          position: NMC Mentee
+          photo: template_sergio.jpg
+          website: 
+        - name: Corey Kownacki
+          position: Grad
+          start: '2017'
+          end: '18'
+          photo: template_corey.jpg
+          website: 'https://www.linkedin.com/in/corey-kownacki/'
+        - name: Syris Norelli
+          start: '2017'
+          end: '18'
+          position: UG
+          role: Chancellor's Research Fellow
+          photo: template_syris.jpg
+          website: 
+        - name: Adam Green
+          position: UG
+          start: '2016'
+          end: '18'
+          role: Honors thesis
+          photo: template_agreen-2.jpg
+          website: 'https://github.com/agree019'
+        - name: Kamran Vaziri
+          start: '2016'
+          end: '17'
+          position: MS
+          role: Masters Student
+          photo: template_kamran.jpg
+          website: 'http://theory.ucr.edu/group.html'
+
+
+
+
+
+  - block: flip-slider
+    content:
+      title: 'My Research Slider'
+      text: 'Test'
+      slides:
+      - title: Find my papers
+        content: |-
+          on [Inspire <i class="ai ai-inspire ai"></i>](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) 
+          and on the
+          [arXiv <i class="ai ai-arxiv ai"></i>](https://arxiv.org/search/?searchtype=author&query=Tanedo%2C+P)
+        align: center
+        background:
+          # position: right
+          # color: '#666'
+          brightness: 0.8 
+          media: research/carousel_chalkboard.jpg
+        link:
+          icon: atom
+          icon_pack: fas
+          text: Join Us
+          url: https://inspirehep.net/authors/1049892
+
+      - title: ML
+        content: Machine Learning High-Dimensional Theory Spaces
+        align: left
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_ml.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2103.06957
+          url: https://arxiv.org/abs/2103.06957
+        credit: '[@fabioha via Unsplash](https://unsplash.com/photos/oyXis2kALVg)'
+      - title: Dark Z
+        content: at linear colliders
+        align: right
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_ILC.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2205.10304
+          url: https://arxiv.org/abs/2205.10304
+        credit: '[@Umberto via Unsplash](https://unsplash.com/photos/FewHpO4VC9Y)'
+      - title: Conformal DM
+        content: Continuum Mediated Self-Interactions
+        align: left
+        background:
+          position: left
+          # color: '#666'
+          brightness: 0.7
+          media: research/carousel_sidm.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2102.05674
+          url: https://arxiv.org/abs/2102.05674
+        credit: '[Adrien Olichon via Pexels](https://www.pexels.com/photo/black-sand-dunes-2387793/)'
+      - title: AdS
+        content: Continuum Soft Bombs
+        align: left
+        background:
+          position: left
+          brightness: .9
+          media: research/carousel_softbomb.jpg
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2002.12335
+          url: https://arxiv.org/abs/2002.12335
+        credit: '[Jessica Lewis via Pexels](https://www.pexels.com/photo/close-up-photo-of-dandelion-1118427/)'
+      - title: DM Capture
+        content: on relativistic targets
+        align: right
+        background:
+          position: left
+          brightness: 0.7
+          media: research/carousel_neutronstar.png  # path relative to   `assets/
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 2004.09539
+          url: https://arxiv.org/abs/2004.09539
+        credit: '[FNS via Pexels](https://www.pexels.com/photo/stars-during-nighttime-127577/)'
+      - title: Symmetry Breaking
+        content: vector self-interacting dark matter
+        align: left
+        background:
+          position: left
+          brightness: 0.7
+          media: research/carousel_fiberbundle.jpg  # path relative to   `assets/
+        link:
+          icon: graduation-cap
+          icon_pack: fas
+          text: 1907.10217
+          url: https://arxiv.org/abs/1907.10217
+        credit: '[@anyctophile via Unsplash ("fiber bundle"   😄)](https://unsplash.com/photos/8uTqI_KpC_Q)'
+    design:
+      columns: '1'
+      # css_style: 'background-color: #F7F7F7;'
+
+
+
 
   - block: flip_teaching
   # - block: markdown
+    id: teaching
     content: 
       title: Teaching
       text: |-
-        Test text in the teaching block 12/30
-
-        Next time: just most recent version of each class on top, then older versions as links on the bottom. That way each icon gets to shine
-
-        How to request a letter of rec.
+        Information about my courses.
     class:
       - name: Linear Algebra
         number: P17
@@ -310,354 +535,171 @@ sections:
 
 
 
-  - block: flip_markdown
-    content:
-      title: 'Flip Markdown'
-      subtitle: ''
-      text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+  # - block: flip_markdown
+  #   content:
+  #     title: 'Flip Markdown'
+  #     subtitle: ''
+  #     text: |-
+  #       Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
 
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+  #       Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
         
-        Please reach out to collaborate 
-    design:
-      columns: '2'
-      # css_style: 'background-color: #F7F7F7;'
+  #       Please reach out to collaborate 
+  #   design:
+  #     columns: '2'
+  #     # css_style: 'background-color: #F7F7F7;'
 
-  - block: flip_team 
-  # - block: markdown
+
+
+
+
+
+  # - block: collection
+  #   id: papers
+  #   content:
+  #     title: Featured Publications
+  #     filters:
+  #       folders:
+  #         - publication
+  #       featured_only: true
+  #   design:
+  #     view: article-grid
+  #     columns: 2
+
+  # - block: collection
+  #   content:
+  #     title: Recent Publications
+  #     text: ""
+  #     filters:
+  #       folders:
+  #         - publication
+  #       exclude_featured: false
+  #   design:
+  #     view: citation
+
+  # - block: collection
+  #   id: talks
+  #   content:
+  #     title: Recent & Upcoming Talks
+  #     filters:
+  #       folders:
+  #         - event
+  #   design:
+  #     view: article-grid
+  #     columns: 1
+
+  # - block: collection
+  #   id: news
+  #   content:
+  #     title: Recent News
+  #     subtitle: ''
+  #     text: ''
+  #     # Page type to display. E.g. post, talk, publication...
+  #     page_type: post
+  #     # Choose how many pages you would like to display (0 = all pages)
+  #     count: 5
+  #     # Filter on criteria
+  #     filters:
+  #       author: ""
+  #       category: ""
+  #       tag: ""
+  #       exclude_featured: false
+  #       exclude_future: false
+  #       exclude_past: false
+  #       publication_type: ""
+  #     # Choose how many pages you would like to offset by
+  #     offset: 0
+  #     # Page order: descending (desc) or ascending (asc) date.
+  #     order: desc
+  #   design:
+  #     # Choose a layout view
+  #     view: date-title-summary
+  #     # Reduce spacing
+  #     spacing:
+  #       padding: [0, 0, 0, 0]
+
+
+
+
+  - block: flip-slider-2
     content:
-      title: Team
-      subtitle: Tanedo Group
-      text: |-
-        I am part of the [UCR particle theory](https://theory.ucr.edu) group. I also work with some of the theory faculty in the [UCR astro group](https://astro.ucr.edu).
+      slides:    
+        - title: UCR
+          content: theory group lunch 2019
+          credit: 
+          align: left
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/group19.jpg
+    
+        - title: phy-sci
+          content: book club @ Cellar Door
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/physci.jpg
+          link:
+            icon: book
+            icon_pack: fas
+            text: phy-sci
+            url: https://sites.google.com/ucr.edu/physci-book-club/
 
-        {{% callout note %}}
-        I am not currently taking new Ph.D students. <small>Prospective UCR students should reach out to discuss expectations of studentship.</small>
-        {{% /callout %}}
-
-        UCR undergraduates seeking mentoring in particle physics (e.g. through [NMC](https://www.aps.org/programs/minorities/nmc/) or [CL](https://www.cientificolatino.com)) may [contact me](#contact). I welcome invitations for potential postdocs eligible for the [UC PPFP](https://ppfp.ucop.edu/info/) fellowship, NSF MPS ASCEND fellowship, or a [UC-MEXUS](https://alianzamx.universityofcalifornia.edu/research-and-innovation/uc-mexus-conacyt-doctoral-fellow-program/) fellowship.
-    mygroup:
-      students:
-        - name: Samir Kulkarni
-          start: '2024'
-          position: Undergrad
-          photo: template_samir.jpg
-        - name: Matt Lugatiman
-          start: '2022'
-          position: Undergrad
-          photo: template_matt.jpg
-          website: 'https://www.linkedin.com/in/matthew-lugatiman-883820233/'
-        - name: Yash Aggarwal
-          start: '2019'
-          position: Grad
-          photo: template_yash.jpg
-          website: 'https://orcid.org/0000-0002-3862-0622%20'
-        - name: Adam Green
-          position: Grad
-          start: '2018'
-          photo: template_agreen-2.jpg
-          website: 'https://github.com/agree019'
-      oldstudents:
-        - name: Kuntal Pal
-          position: Grad
-          start: '2018'
-          end: '2024'
-          photo: template_kuntal.jpg
-          website: 'https://www.linkedin.com/in/kuntal-pal/'
-        - name: Lexi Costantino
-          start: '2018'
-          end: '2023'
-          position: Grad
-          photo: template_lexi.jpg
-          website: 'https://www.cocc.edu/directory/departments/physics.aspx'
-        - name: Nathan Kang
-          start: '2022'
-          end: '2023'
-          position: HS
-          photo: template_nathan.jpg
-        - name: Rob Clemenson
-          start: '2022'
-          end: '2023'
-          position: Grad
-          photo: template_rob.jpg
-          website: 'https://cosmicconundra.com/'
-        - name: Ian Chaffey
-          start: '2017'
-          end: '2022'
-          position: Grad
-          photo: template_ian.jpg
-          website: 'https://www.linkedin.com/in/ian-chaffey/'
-        - name: Aniket Joglekar
-          position: Postdoc
-          start: '2017'
-          end: '2020'
-          photo: template_aniket.jpg
-          website: 'https://iittp.ac.in/dr-aniket-joglekar'
-        - name: Cecelia Ngo
-          start: '2021'
-          end: '2022'
-          position: UG
-          photo: portrait.jpg
-        - name: Sagada Penano
-          position: Undergrad (Stanford)
-          start: '2020'
-          end: '2021'
-          photo: template_sagada.jpg
-          website: 'https://profiles.stanford.edu/sagada-penano'
-        - name: Anagha Satish ‡§
-          position: HS
-          start: '2020'
-          end: '2021'
-          photo: template_anagha.jpg
-          website: ''
-        - name: Sergio Garcia
-          start: '2018'
-          end: '19'
-          position: NMC Mentee
-          photo: template_sergio.jpg
-          website: 
-        - name: Corey Kownacki
-          position: Grad
-          start: '2017'
-          end: '18'
-          photo: template_corey.jpg
-          website: 'https://www.linkedin.com/in/corey-kownacki/'
-        - name: Syris Norelli
-          start: '2017'
-          end: '18'
-          position: UG
-          role: Chancellor's Research Fellow
-          photo: template_syris.jpg
-          website: 
-        - name: Adam Green
-          position: UG
-          start: '2016'
-          end: '18'
-          role: Honors thesis
-          photo: template_agreen-2.jpg
-          website: 'https://github.com/agree019'
-        - name: Kamran Vaziri
-          start: '2016'
-          end: '17'
-          position: MS
-          role: Masters Student
-          photo: template_kamran.jpg
-          website: 'http://theory.ucr.edu/group.html'
-
-
-  - block: flip_markdown_new
-    content:
-      title: 'Flip Mark_new'
-      subtitle: ''
-      text: |-
-        Here I am testing it out. Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-        
-        Please reach out to collaborate 
-    design:
-      columns: '2'
-      # css_style: 'background-color: #F7F7F7;'
-
-
-
-  - block: flip-slider
-  # someting weird with horizontal scroll
-  # - block: markdown
-    content:
-      title: 'My Research Slider'
-      text: 'Test'
-      slides:
-      - title: Find my papers
-        content: |-
-          on [Inspire <i class="ai ai-inspire ai"></i>](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) 
-          and on the
-          [arXiv <i class="ai ai-arxiv ai"></i>](https://arxiv.org/search/?searchtype=author&query=Tanedo%2C+P)
-        align: center
-        background:
-          # position: right
-          # color: '#666'
-          brightness: 0.8 
-          media: research/carousel_chalkboard.jpg
-        link:
-          icon: atom
-          icon_pack: fas
-          text: Join Us
-          url: https://inspirehep.net/authors/1049892
-
-      - title: ML
-        content: Machine Learning High-Dimensional Theory Spaces
-        align: left
-        background:
-          position: left
-          # color: '#666'
-          brightness: 0.7
-          media: research/carousel_ml.jpg
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 2103.06957
-          url: https://arxiv.org/abs/2103.06957
-        credit: '[@fabioha via Unsplash](https://unsplash.com/photos/oyXis2kALVg)'
-      - title: Dark Z
-        content: at linear colliders
-        align: right
-        background:
-          position: left
-          # color: '#666'
-          brightness: 0.7
-          media: research/carousel_ILC.jpg
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 2205.10304
-          url: https://arxiv.org/abs/2205.10304
-        credit: '[@Umberto via Unsplash](https://unsplash.com/photos/FewHpO4VC9Y)'
-      - title: Conformal DM
-        content: Continuum Mediated Self-Interactions
-        align: left
-        background:
-          position: left
-          # color: '#666'
-          brightness: 0.7
-          media: research/carousel_sidm.jpg
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 2102.05674
-          url: https://arxiv.org/abs/2102.05674
-        credit: '[Adrien Olichon via Pexels](https://www.pexels.com/photo/black-sand-dunes-2387793/)'
-      - title: AdS
-        content: Continuum Soft Bombs
-        align: left
-        background:
-          position: left
-          brightness: .9
-          media: research/carousel_softbomb.jpg
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 2002.12335
-          url: https://arxiv.org/abs/2002.12335
-        credit: '[Jessica Lewis via Pexels](https://www.pexels.com/photo/close-up-photo-of-dandelion-1118427/)'
-      - title: DM Capture
-        content: on relativistic targets
-        align: right
-        background:
-          position: left
-          brightness: 0.7
-          media: research/carousel_neutronstar.png  # path relative to   `assets/
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 2004.09539
-          url: https://arxiv.org/abs/2004.09539
-        credit: '[FNS via Pexels](https://www.pexels.com/photo/stars-during-nighttime-127577/)'
-      - title: Symmetry Breaking
-        content: vector self-interacting dark matter
-        align: left
-        background:
-          position: left
-          brightness: 0.7
-          media: research/carousel_fiberbundle.jpg  # path relative to   `assets/
-        link:
-          icon: graduation-cap
-          icon_pack: fas
-          text: 1907.10217
-          url: https://arxiv.org/abs/1907.10217
-        credit: '[@anyctophile via Unsplash ("fiber bundle"   😄)](https://unsplash.com/photos/8uTqI_KpC_Q)'
-    design:
-      columns: '1'
-      # css_style: 'background-color: #F7F7F7;'
-        
+    
+        - title: Tanedo
+          content: group photo 2019
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/tanedogroup19.jpg
+    
+        - title: 
+          content: 
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/swim.jpg
+    
+        - title: 
+          content: 
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/office.jpg
+    
+        - title: 
+          content: 
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/apple.jpg
+    
+        - title: 
+          content: 
+          credit: 
+          align: right
+          background:
+            position: center
+            brightness: 0.7
+            media: photos/flip_5.jpg
+#
 
 
 
 
-  - block: markdown
-    content:
-      title: '📚 My Research'
-      subtitle: ''
-      text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
-
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
-        
-        Please reach out to collaborate 😃
-    design:
-      columns: '1'
-      # css_style: 'background-color: #F7F7F7;'
-
-
-
-
-
-  - block: collection
-    id: papers
-    content:
-      title: Featured Publications
-      filters:
-        folders:
-          - publication
-        featured_only: true
-    design:
-      view: article-grid
-      columns: 2
-
-  - block: collection
-    content:
-      title: Recent Publications
-      text: ""
-      filters:
-        folders:
-          - publication
-        exclude_featured: false
-    design:
-      view: citation
-
-  - block: collection
-    id: talks
-    content:
-      title: Recent & Upcoming Talks
-      filters:
-        folders:
-          - event
-    design:
-      view: article-grid
-      columns: 1
-
-  - block: collection
-    id: news
-    content:
-      title: Recent News
-      subtitle: ''
-      text: ''
-      # Page type to display. E.g. post, talk, publication...
-      page_type: post
-      # Choose how many pages you would like to display (0 = all pages)
-      count: 5
-      # Filter on criteria
-      filters:
-        author: ""
-        category: ""
-        tag: ""
-        exclude_featured: false
-        exclude_future: false
-        exclude_past: false
-        publication_type: ""
-      # Choose how many pages you would like to offset by
-      offset: 0
-      # Page order: descending (desc) or ascending (asc) date.
-      order: desc
-    design:
-      # Choose a layout view
-      view: date-title-summary
-      # Reduce spacing
-      spacing:
-        padding: [0, 0, 0, 0]
 
   - block: flip_contact
+    id: contact
     content:
       title: Contact
       subtitle:

@@ -1,5 +1,5 @@
-{{/* Hugo Blox: Flip's Slider 1 */}}
-{{/* for papers */}}
+{{/* Hugo Blox: Flip's Slider */}}
+{{/* for photos */}}
 {{/* Documentation: https://hugoblox.com/blocks/ */}}
 {{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
 
@@ -32,36 +32,35 @@
     {{ range $block.content.slides }}
 
       <div class="swiper-slide">
+
       {{ $swi_title := .title }}
       {{ $swi_text := .content }}
       {{ $swi_text_align := (printf "slide-text-%s" .align) }}
       {{ $swi_credit := .credit }}
+
       {{ $img := "" }}
-
-        {{with .background}}
-          {{- $img = resources.Get (path.Join "media" .media) -}}
-
-          {{ if $img }}
-            {{- $img = $img.Process "webp" -}}
+      {{- $img = resources.Get (path.Join "media" .background.media) -}}
+      {{- $img = $img.Process "webp" -}}
           
 
-            <img src="{{$img.RelPermalink}}" alt="Image 1" style="filter: brightness({{.brightness}})">
-            <div class="{{$swi_text_align}}">
-              <div class="section-subheading">
-                {{$swi_title}}
-              </div>
-              <p class="greenlink">{{$swi_text | markdownify}}</p>
-              <div class="comment">{{ $swi_credit | markdownify }}</div>
-            </div>
-          
-          {{ end }}
+        <img src="{{$img.RelPermalink}}" style="filter: brightness({{.brightness}})">
+        {{ with .content }}
+        <div class="{{$swi_text_align}}" style="top: 80%;">
+          <div class="section-subheading">
+            {{$swi_title}}
+          </div>
+          <p class="greenlink">{{$swi_text | markdownify}}</p>
+          <div class="comment">{{ $swi_credit | markdownify }}</div>
+        </div>
         {{ end }}
-      
+          
       </div> <!-- /swiper-slide -->
+  
 
-    {{ end }} <!-- end range -->
 
-  </div> <!-- /swiper-wrapper -->
+    {{ end }}
+    <!--  -->
+  </div>
 
     <!-- Add navigation controls -->
     <div class="swiper-button-next"></div>
@@ -69,7 +68,7 @@
 
     <!-- Add pagination -->
     <div class="swiper-pagination"></div>
-  </div> <!-- /swiper-container -->
+  </div>
 </div>
 
 

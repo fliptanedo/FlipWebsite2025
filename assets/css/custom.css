@@ -14,6 +14,14 @@ body {
   font-style: normal;
 }
 
+.nav-item a:visited {
+  color: #ffffff;
+}
+
+.nav-item a:hover {
+  color: #fffc33;
+}
+
 
 .greenlink a {
   color: #4CAF50;
@@ -158,7 +166,10 @@ body{
   /* this is now needed to color the very bottom of
      the view screen. */
   /* Amusingly, it does not even need to be colored.  */
-  background-color: #012622; /* you can even skip this */
+/*   background-color: #012622;  /* you can even skip this */*/
+  /* correction: you need this white for non-home pages  */
+    background-color: #ffffff; /* you can even skip this */
+  /* but #ffffff leaves a white border on bottom */
   /* see my notes. */
 }
 
@@ -192,6 +203,13 @@ body{
 .powered-by a:link, a:visited, a:hover, a:active{
   color: #079669;
   text-decoration: none;
+}
+
+/* removes weird line of dark green background */
+/* that shows up above footer on non-home pages */
+.my-10 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
 }
 
 
