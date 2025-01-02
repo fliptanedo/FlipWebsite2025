@@ -467,22 +467,25 @@ sections:
   # - block: markdown
     content:
       title: 'My Research Slider'
-      subtitle: ''
       text: 'Test'
       slides:
-      - title: 
-        content: Find my papers on InspireHEP
+      - title: Find my papers
+        content: |-
+          on [Inspire <i class="ai ai-inspire ai"></i>](https://inspirehep.net/literature?sort=mostrecent&size=25&page=1&q=tanedo) 
+          and on the
+          [arXiv <i class="ai ai-arxiv ai"></i>](https://arxiv.org/search/?searchtype=author&query=Tanedo%2C+P)
         align: center
         background:
-          position: right
+          # position: right
           # color: '#666'
-          brightness: 0.7 
+          brightness: 0.8 
           media: research/carousel_chalkboard.jpg
         link:
           icon: atom
           icon_pack: fas
           text: Join Us
           url: https://inspirehep.net/authors/1049892
+
       - title: ML
         content: Machine Learning High-Dimensional Theory Spaces
         align: left
@@ -510,7 +513,7 @@ sections:
           icon_pack: fas
           text: 2205.10304
           url: https://arxiv.org/abs/2205.10304
-        credit: '[@Umberto via Unsplash](https://unsplash.com/photos/  FewHpO4VC9Y)'
+        credit: '[@Umberto via Unsplash](https://unsplash.com/photos/FewHpO4VC9Y)'
       - title: Conformal DM
         content: Continuum Mediated Self-Interactions
         align: left
@@ -530,14 +533,14 @@ sections:
         align: left
         background:
           position: left
-          brightness: 0.7
+          brightness: .9
           media: research/carousel_softbomb.jpg
         link:
           icon: graduation-cap
           icon_pack: fas
           text: 2002.12335
           url: https://arxiv.org/abs/2002.12335
-        credit: '[Jessica Lewis via Pexels](https://www.pexels.com/photo/  close-up-photo-of-dandelion-1118427/)'
+        credit: '[Jessica Lewis via Pexels](https://www.pexels.com/photo/close-up-photo-of-dandelion-1118427/)'
       - title: DM Capture
         content: on relativistic targets
         align: right
@@ -550,7 +553,7 @@ sections:
           icon_pack: fas
           text: 2004.09539
           url: https://arxiv.org/abs/2004.09539
-        credit: '[FNS via Pexels](https://www.pexels.com/photo/  stars-during-nighttime-127577/)'
+        credit: '[FNS via Pexels](https://www.pexels.com/photo/stars-during-nighttime-127577/)'
       - title: Symmetry Breaking
         content: vector self-interacting dark matter
         align: left
@@ -566,7 +569,7 @@ sections:
         credit: '[@anyctophile via Unsplash ("fiber bundle"   😄)](https://unsplash.com/photos/8uTqI_KpC_Q)'
     design:
       columns: '1'
-      css_style: 'background-color: #F7F7F7;'
+      # css_style: 'background-color: #F7F7F7;'
         
 
 

@@ -1254,3 +1254,13 @@ At this stage most of the template is set up. Now let's fill in the content.
 * In dark-mode the vertical scroll bar has a dark background that looks like a right-most border. In light-mode the vertical scroll bar is invisible.
 
 ![image-20250101102312833](./figures/image-20250101102312833.png)
+
+* Currently custom css is only inserted in `./assets/css/custom.css`. This is called by the default `site_head.html` partial at `.layouts_templates/partials/site_head.html`:
+  ```html
+     82:   {{ if fileExists "assets/css/custom.css" }}
+     83:     {{ $styles := resources.Get "css/custom.css" | minify | fingerprint "sha256" }}
+     84      <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+     85    {{ end }}
+  ```
+
+  In the future, I could split up the `custom.css` file to make things more portable. e.g. the slider css could be placed elsewhere.
