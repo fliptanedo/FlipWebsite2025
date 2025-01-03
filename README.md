@@ -1220,15 +1220,52 @@ At this stage most of the template is set up. Now let's fill in the content.
 
 You can create your own subfolders. This is how the `./layouts_templates/partials/blox/collection.html` block works. It goes through a named subfolder pulls out the content.
 
+### Weird bar on non-home pages?!
+
+As set up, the non-home pages will have an odd footer:
+
+![image-20250102071754602](./figures/image-20250102071754602.png)
+
+This weird dark band is due to a margin on a divider of class `my-10`. The way to solve this is set this class to have zero top/bottom margins. (It's either top or bottom, but I set both to zero.) In `./assets/css/custom.css`:
+
+```
+.my-10 {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+```
+
+
+
 ### One offs
 
 Create a directory `./content/info/`.
 
-This is where I put my biography.
+This is where I put my biography. The `./layouts_templates/partials/blox/collection.html` widget is what Hugo Blox uses to pull "articles" from the `./content` folder. With an eye for expansion, it pays off to organize the non-home pages into subfolders.
 
 ## 404 Page
 
-<mark>to do</mark>
+Not bad to edit.
+
+# Deployment
+
+**Background**: my domain name points to a folder on a remote server. I do not want to download much onto the remote server. I'm happy to just synchronize the "deply" folder (`htdocs`) .
+
+Tool to use: **Rsync**, [Hugo Documentation on Rsync](https://gohugo.io/hosting-and-deployment/deployment-with-rsync/)
+
+What it does: Rsync is not a version control system (e.g. Git is a version control system), but it "upgrades" SFTP by only uploading files that have been updated relative to the remote that you're pushing to.
+
+I previously thought I could run a `cron` job on the remote sever that pulls from GitHub. However, the default GitHub deployment does *not* have a readily accessible `./public/` folder (the folder that Hugo dumps the static site into). Instead of futzing with this, I can just use Rsync locally.
+
+### Server
+
+For UCR site: use [vhost]((https://websites.ucr.edu/frequently-asked-questions#how-do-i-access-vhost)), you need to be on the UCR VPN to log in. Otherwise you will not be able to log in and there is no obvious error message. 
+
+Hugo recommends [copying an SSH key to the host](https://gohugo.io/hosting-and-deployment/deployment-with-rsync/) to "make logging in to your server more secure and less interactive." Note that in the instructions, you are asked to generate a passphrase: "Not using a passphrase will let you transfer files non-interactively, as you won’t be prompted for a password when you log in, but it is slightly less secure." 
+
+
+
+
 
 # Notes
 
@@ -1276,3 +1313,7 @@ This is where I put my biography.
   ```
 
   In the future, I could split up the `custom.css` file to make things more portable. e.g. the slider css could be placed elsewhere.
+  
+* Figure out what template the non-home pages are using. There are a lot of little things that I'd like to remove, e.g. the social media row at the bottom of these pages. 
+  ![image-20250102072236969](./figures/image-20250102072236969.png)
+

@@ -12,7 +12,7 @@ sections:
 
   - block: resume-biography-flip
     content:
-      # User profile to display (folder name in `content/authors/`)
+      # which profile (folder in `content/authors/`)
       username: admin
       buttons:
         - text: Download CV
@@ -42,6 +42,9 @@ sections:
           position: center
           parallax: false
 
+###########
+# FLIP CV #
+###########
 
   - block: flip_cv
   # THE ID must be all lowercase
@@ -140,6 +143,10 @@ sections:
       # - thing: '[Snowmass TF/CF Liaison](https://www.aps.org/units/dpf/snowmass-2021.cfm)'
 
 
+#################
+# FLIP RESEARCH #
+#################
+
   - block: flip_markdown
     id: research
     content:
@@ -156,8 +163,15 @@ sections:
       # css_style: 'background-color: #F7F7F7;'
 
 
+
+#############
+# FLIP TEAM #
+#############
+
   - block: flip_team 
     id: team
+    design:
+      css_style: 'background-color: #F7F7F7;'
     content:
       title: Team
       subtitle: Tanedo Group
