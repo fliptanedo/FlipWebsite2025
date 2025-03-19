@@ -13,7 +13,13 @@ See [Hugo Notes](HugoNotes.md) for links and general Hugo(Blox) references.
 
 Old versions: [2025](https://github.com/fliptanedo/FlipWebsite2025) (this) | [2024](https://github.com/fliptanedo/FlipWebsite2024) ([site](https://fliptanedo.github.io/FlipWebsite2024/)) |  [2023](https://github.com/fliptanedo/FlipWebsite2023) | [2022](https://github.com/fliptanedo/FlipWebsite2022/blob/main/README.md) | [2021](https://github.com/fliptanedo/tanedo-website-2021/blob/master/README.md) | [2020](https://github.com/fliptanedo/flip-www-2020) [unfortunately I did not have the foresight to host 2023 and before on GitHub Pages as an archive; copies are stored on my UCR webspace. ]
 
+## Quick Update Reminder
 
+1. Navigate to the directory in terminal and run `hugo server -D`. This starts the web server. 
+2. Update as necessary, use the web address to double check your work. 
+3. `ctrl+c` to stop the server
+4. `hugo server` to generate the static site
+5. Run my script to deploy ``./flip_deploy_ucr.sh`
 
 ## Table of contents
 
@@ -1263,9 +1269,28 @@ For UCR site: use [vhost]((https://websites.ucr.edu/frequently-asked-questions#h
 
 Hugo recommends [copying an SSH key to the host](https://gohugo.io/hosting-and-deployment/deployment-with-rsync/) to "make logging in to your server more secure and less interactive." Note that in the instructions, you are asked to generate a passphrase: "Not using a passphrase will let you transfer files non-interactively, as you won’t be prompted for a password when you log in, but it is slightly less secure." 
 
+My host: `vhuser.aws.ucr.edu`
 
+### Script
 
+I created a `flip_deploy_ucr.sh` file (not version controlled) that contains the following information
 
+```
+#!/bin/sh
+USER=my-user
+HOST=vhuser.aws.ucr.edu
+DIR=htdocs/
+
+hugo && rsync -avz --delete public/ ${USER}@${HOST}:~/${DIR} 
+
+exit 0
+```
+
+Then `chmod +x flip_deploy_ucr.sh`.
+
+To run: `./flip_deploy_ucr.sh`.
+
+This works great!
 
 # Notes
 

@@ -17,7 +17,7 @@ sections:
       buttons:
         - text: Download CV
           fontawesome: fa-download
-          url: uploads/resume.pdf
+          url: files/Tanedo.pdf
         - text: Professional Biosketch
           fontawesome: fa-user
           url: ./info/bio/

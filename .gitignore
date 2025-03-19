@@ -23,3 +23,4 @@ go.sum
 
 # Private files
 private.md
+flip_deploy_ucr.sh
